@@ -8,12 +8,12 @@ function Landing() {
 
   return (
     <div className="container">
-      <h1>🎉 Welcome to Daycare App 👶</h1>
-      <p>Please choose your role to continue</p>
-      <button onClick={() => navigate("/employee-role")}>Staff Login</button>
+      <button onClick={() => navigate("/employee-role")}>Staff Login
+      </button>
       <button onClick={() => navigate("/parent-dashboard")}>
         Parent Login
       </button>
+      <h1>🎉 Welcome to Daycare App 👶</h1>
     </div>
   );
 }

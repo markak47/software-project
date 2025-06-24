@@ -23,6 +23,15 @@ p {
   margin-bottom: 30px;
 }
 
+.button-group {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
 button {
   font-size: 18px;
   padding: 12px 24px;
