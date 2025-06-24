@@ -1,0 +1,53 @@
+/* src/pages/Landing.css */
+body {
+  background-color: #fff8dc; /* light warm yellow */
+  font-family: "Quicksand", sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  padding-top: 100px;
+}
+
+h1 {
+  font-size: 48px;
+  color: #ff69b4;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 20px;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+button {
+  font-size: 18px;
+  padding: 12px 24px;
+  margin: 10px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Quicksand", sans-serif;
+}
+
+button:first-of-type {
+  background-color: #ff69b4;
+  color: white;
+}
+
+button:first-of-type:hover {
+  background-color: #ff85c1;
+}
+
+button:last-of-type {
+  background-color: #87cefa;
+  color: white;
+}
+
+button:last-of-type:hover {
+  background-color: #a2d4f9;
+}

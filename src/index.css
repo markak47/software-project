@@ -1,0 +1,13 @@
+/* src/index.css */
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: lch(97.93% 0.01 296.81);
+  color: #333;
+}
+
+h1 {
+  margin-top: 1rem;
+  text-align: center;
+}
