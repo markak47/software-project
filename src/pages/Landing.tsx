@@ -33,7 +33,7 @@ function Login() {
   return (
     <div
       style={{
-        minHeight: "250vh",
+        minHeight: "200vh",
         background:
           "linear-gradient(to top,rgb(245, 233, 215),rgb(217, 130, 7))",
         display: "flex",
