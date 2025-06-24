@@ -3,13 +3,12 @@ export type Role = "teacher" | "parent" | "manager";
 export type User = {
   id: number;
   username: string;
-  password: string; // Note: store hashed passwords in real apps
+  password: string;
   role: Role;
-  assignedChildName?: string; // only for parents
+  assignedChildName?: string;
 };
 
 export const sampleUsers: User[] = [
-  // 👩‍🏫 Teachers
   {
     id: 1,
     username: "anna",
@@ -23,7 +22,6 @@ export const sampleUsers: User[] = [
     role: "teacher",
   },
 
-  // 👨‍👩‍👧‍👦 Parents (by last name)
   {
     id: 3,
     username: "smith",

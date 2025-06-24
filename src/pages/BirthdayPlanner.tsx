@@ -1,15 +1,13 @@
 // src/pages/BirthdayPlanner.tsx
-import BirthdayList from "./BirthdayList";
-import AddBirthday from "./AddBirthday";
+import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
 function BirthdayPlanner() {
   return (
     <>
       <Navbar />
-      <main>
-        <BirthdayList />
-        <AddBirthday />
+      <main style={{ padding: "1rem" }}>
+        <Outlet />
       </main>
     </>
   );
