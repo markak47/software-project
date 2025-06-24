@@ -35,7 +35,7 @@ function Login() {
       style={{
         minHeight: "250vh",
         background:
-          "linear-gradient(to top,rgb(250, 250, 250),rgb(217, 130, 7))",
+          "linear-gradient(to top,rgb(245, 233, 215),rgb(217, 130, 7))",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -75,11 +75,13 @@ function Login() {
           zIndex: 10,
         }}
       >
-        <button onClick={() => navigate("/employee-role")} style={buttonStyle}>
+        <button 
+          onClick={() => window.open("https://sternipark.de/de/kitas/standorte/museumsplatz/")} 
+          style={buttonStyle}>
           ⏰ Open hours
         </button>
         <button
-          onClick={() => navigate("/parent-dashboard")}
+          onClick={() => window.open("https://www.google.de/maps/dir//Museumspl.+1,+21073+Hamburg/@53.4585604,9.9721184,16z/data=!4m8!4m7!1m0!1m5!1m1!1s0x47b191af00525999:0xe069898cd8f129ec!2m2!1d9.9772683!2d53.4585541?entry=ttu&g_ep=EgoyMDI1MDYxNy4wIKXMDSoASAFQAw%3D%3D")}
           style={buttonStyle}
         >
           📍 Location
@@ -161,8 +163,8 @@ function Login() {
           src={team[current].img}
           alt={team[current].name}
           style={{
-            width: "120px",
-            height: "120px",
+            width: "200px",
+            height: "200px",
             borderRadius: "50%",
             objectFit: "cover",
             marginRight: "32px",
@@ -203,20 +205,7 @@ function Login() {
           fontWeight: 300,
         }}
       >
-        Our Qualifications
-      </p>
-      <p
-        style={{
-          position: "absolute",
-          top: "1400px",
-          left: "150px",
-          fontSize: "2.5rem",
-          color: "#f5f5f5",
-          margin: 0,
-          fontWeight: 300,
-        }}
-      >
-        Educational Activities & Tools
+        Activities & Ressources 
       </p>
     </div>
   );
