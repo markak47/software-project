@@ -1,4 +1,3 @@
-// src/App.tsx
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 
@@ -9,17 +8,24 @@ import EmployeeRole from "./pages/EmployeeRole";
 import TeacherDashboard from "./pages/TeacherDashboard";
 import BirthdayList from "./pages/BirthdayList";
 import AddBirthday from "./pages/AddBirthday";
+import TeacherLogin from "./pages/TeacherLogin";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Login />} />
+        {/* 🔑 General Login and Navigation */}
+        <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Landing />} />
+
+        {/* 👩‍🏫 Staff Route Selection */}
         <Route path="/employee-role" element={<EmployeeRole />} />
+        <Route path="/teacher-login" element={<TeacherLogin />} />
+
+        {/* 🧑‍🏫 Teacher Dashboard */}
         <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
 
-        {/* Nested birthday planner routes */}
+        {/* 🎂 Birthday Planner Nested Pages */}
         <Route
           path="/teacher-dashboard/birthday-planner"
           element={

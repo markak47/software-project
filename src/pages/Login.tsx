@@ -1,51 +1,38 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 function Login() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const { login } = useAuth();
   const navigate = useNavigate();
 
-  return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "linear-gradient(to right, #e0f7fa, #b2ebf2)",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        fontFamily: "Arial, sans-serif",
-      }}
-    >
-      <h1
-        style={{ fontSize: "2.5rem", marginBottom: "2rem", color: "#00796b" }}
-      >
-        🎉 Welcome to the Daycare App!
-      </h1>
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (login(username, password)) {
+      navigate("/landing");
+    } else {
+      alert("Invalid credentials");
+    }
+  };
 
-      <div style={{ display: "flex", gap: "2rem" }}>
-        <button onClick={() => navigate("/employee-role")} style={buttonStyle}>
-          Staff Login
-        </button>
-        <button
-          onClick={() => navigate("/parent-dashboard")}
-          style={buttonStyle}
-        >
-          Parent Login
-        </button>
-      </div>
-    </div>
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        placeholder="Username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
+      <input
+        placeholder="Password"
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <button type="submit">Log In</button>
+    </form>
   );
 }
-
-const buttonStyle: React.CSSProperties = {
-  padding: "1rem 2rem",
-  fontSize: "1.2rem",
-  backgroundColor: "#00796b",
-  color: "white",
-  border: "none",
-  borderRadius: "10px",
-  cursor: "pointer",
-  fontWeight: "bold",
-  transition: "background 0.3s",
-};
 
 export default Login;
