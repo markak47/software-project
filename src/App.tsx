@@ -11,6 +11,8 @@ import TeacherDashboard from "./pages/TeacherDashboard";
 import ParentDashboard from "./pages/ParentDashboard";
 import ManagerDashboard from "./pages/ManagerDashboard";
 import BirthdayPlanner from "./pages/BirthdayPlanner";
+import BirthdayList from "./pages/BirthdayList";
+import AddBirthday from "./pages/AddBirthday";
 
 function App() {
   return (
@@ -31,7 +33,11 @@ function App() {
         <Route
           path="/dashboard/teacher/birthday-planner"
           element={<BirthdayPlanner />}
-        />
+        >
+          <Route index element={<BirthdayList />} />
+          <Route path="add" element={<AddBirthday />} />
+        </Route>
+
         <Route path="/dashboard/parent" element={<ParentDashboard />} />
         <Route path="/parent-dashboard" element={<ParentDashboard />} />
 

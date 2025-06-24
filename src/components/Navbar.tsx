@@ -7,16 +7,15 @@ function Navbar() {
       <h2 className="logo">🎂 Birthday Planner</h2>
       <div className="nav-links">
         <NavLink
-          to="/teacher-dashboard/birthday-planner"
+          to="."
           className={({ isActive }) =>
             `nav-item ${isActive ? "active-link" : ""}`
           }
         >
           View Birthdays
         </NavLink>
-
         <NavLink
-          to="/teacher-dashboard/birthday-planner/add"
+          to="add"
           className={({ isActive }) =>
             `nav-item ${isActive ? "active-link" : ""}`
           }

@@ -20,7 +20,7 @@ function TeacherLogin() {
 
     if (foundUser) {
       localStorage.setItem("loggedInUser", JSON.stringify(foundUser));
-      navigate("/dashboard/teacher/birthday-planner");
+      navigate("/dashboard/teacher");
     } else {
       alert("Invalid credentials or role");
     }

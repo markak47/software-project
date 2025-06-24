@@ -21,14 +21,13 @@ function TeacherDashboard() {
 
       <div style={{ display: "flex", gap: "2rem" }}>
         <button
-          onClick={() => navigate("/teacher-dashboard/birthday-planner")}
+          onClick={() => navigate("birthday-planner")}
           style={buttonStyle}
         >
           🎉 Birthday Planner
         </button>
-
         <button
-          onClick={() => navigate("/teacher-dashboard/sick-report")}
+          onClick={() => alert("Assigning tasks... (to be implemented)")}
           style={buttonStyle}
         >
           🤒 Sick Report
