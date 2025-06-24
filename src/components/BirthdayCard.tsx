@@ -1,12 +1,12 @@
-// BirthdayCard.tsx
-// Contains the format of the birthday card.
-
 type Props = {
   name: string;
   group: "Preschool" | "Kindergarten" | "Toddler";
-  teacher: string; // ✅ add this line
+  teacher: string;
   date: string;
   plan: string;
+  favFood?: string;
+  allergies?: string;
+  picture?: string; // base64 or URL
   highlight?: boolean;
   onDelete?: () => void;
 };
@@ -28,7 +28,17 @@ function calculateAge(birthDateStr: string): number {
   return age;
 }
 
-function BirthdayCard({ name, group, date, plan, highlight, onDelete }: Props) {
+function BirthdayCard({
+  name,
+  group,
+  date,
+  plan,
+  favFood,
+  allergies,
+  picture,
+  highlight,
+  onDelete,
+}: Props) {
   return (
     <div
       style={{
@@ -36,11 +46,29 @@ function BirthdayCard({ name, group, date, plan, highlight, onDelete }: Props) {
         borderRadius: "12px",
         padding: "1rem",
         marginBottom: "1rem",
-        backgroundColor: highlight ? "#d1fae5" : "#fffbe6", // light green or cream
+        backgroundColor: highlight ? "#d1fae5" : "#fffbe6",
         maxWidth: "500px",
         boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+        position: "relative", // needed for top-right image positioning
       }}
     >
+      {picture && (
+        <img
+          src={picture}
+          alt={`${name}'s photo`}
+          style={{
+            position: "absolute",
+            top: "1rem",
+            right: "1rem",
+            width: "64px",
+            height: "64px",
+            objectFit: "cover",
+            borderRadius: "50%",
+            border: "2px solid #ccc",
+          }}
+        />
+      )}
+
       <h3
         style={{ color: highlight ? "#059669" : "#ff6f61", fontSize: "1.5rem" }}
       >
@@ -59,6 +87,16 @@ function BirthdayCard({ name, group, date, plan, highlight, onDelete }: Props) {
       <p>
         <strong>Plan:</strong> {plan}
       </p>
+      {favFood && (
+        <p>
+          <strong>Fav Food:</strong> {favFood}
+        </p>
+      )}
+      {allergies && (
+        <p>
+          <strong>Allergies:</strong> {allergies}
+        </p>
+      )}
 
       {onDelete && (
         <button

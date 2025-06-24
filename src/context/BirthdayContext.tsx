@@ -13,6 +13,9 @@ export type Birthday = {
   teacher: string;
   date: string;
   plan: string;
+  favFood?: string;
+  allergies?: string;
+  picture?: string; // base64 or URL string
 };
 
 // 📦 What the context provides

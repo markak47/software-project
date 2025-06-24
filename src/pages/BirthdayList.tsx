@@ -102,6 +102,9 @@ function BirthdayList() {
             teacher={b.teacher}
             date={b.date}
             plan={b.plan}
+            favFood={b.favFood}
+            allergies={b.allergies}
+            picture={b.picture}
             highlight={isUpcoming(b.date)}
             onDelete={() => deleteBirthday(b.id)}
           />

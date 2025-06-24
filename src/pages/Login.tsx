@@ -23,13 +23,13 @@ function Login() {
 
       <div style={{ display: "flex", gap: "2rem" }}>
         <button onClick={() => navigate("/employee-role")} style={buttonStyle}>
-          👩‍🏫 Employee / Manager Login
+          Staff Login
         </button>
         <button
           onClick={() => navigate("/parent-dashboard")}
           style={buttonStyle}
         >
-          👪 Parent Login
+          Parent Login
         </button>
       </div>
     </div>
