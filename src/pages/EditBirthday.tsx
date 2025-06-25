@@ -1,8 +1,14 @@
-import { useState, useContext } from "react";
+import { useContext, useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { BirthdayContext } from "../context/BirthdayContext";
-import { useNavigate } from "react-router-dom";
 
-function AddBirthday() {
+function EditBirthday() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { birthdays, updateBirthday } = useContext(BirthdayContext);
+
+  const birthday = birthdays.find((b) => b.id === Number(id));
+
   const [name, setName] = useState("");
   const [group, setGroup] = useState<"Preschool" | "Kindergarten" | "Toddler">(
     "Preschool"
@@ -10,52 +16,60 @@ function AddBirthday() {
   const [teacher, setTeacher] = useState("");
   const [date, setDate] = useState("");
   const [plan, setPlan] = useState("");
+  const [favFood, setFavFood] = useState("");
   const [allergies, setAllergies] = useState("");
-  const [photo, setPhoto] = useState<File | null>(null);
-  const [message, setMessage] = useState("");
 
-  const { addBirthday } = useContext(BirthdayContext);
-  const navigate = useNavigate();
+  useEffect(() => {
+    if (birthday) {
+      setName(birthday.name);
+      setGroup(birthday.group);
+      setTeacher(birthday.teacher);
+      setDate(birthday.date);
+      setPlan(birthday.plan);
+      setFavFood(birthday.favFood || "");
+      setAllergies(birthday.allergies || "");
+    }
+  }, [birthday]);
+
+  if (!birthday) {
+    return (
+      <p style={{ padding: "2rem", textAlign: "center" }}>
+        Birthday not found.
+      </p>
+    );
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const newBirthday = {
-      id: Date.now(),
+    const updated = {
+      ...birthday,
       name,
       group,
       teacher,
       date,
       plan,
+      favFood,
       allergies,
-      message,
-      photoUrl: photo ? URL.createObjectURL(photo) : null, // For now just preview
     };
 
-    addBirthday(newBirthday);
-    navigate("/birthdays");
+    updateBirthday(updated);
+    navigate(-1); // Go back
   };
 
   return (
     <div
       style={{
         minHeight: "100vh",
-        background: "linear-gradient(to right, #dbeafe, #bfdbfe)",
+        background: "linear-gradient(to right, #e0f2fe, #bae6fd)",
         padding: "2rem",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
       }}
     >
-      <h2
-        style={{
-          fontSize: "2rem",
-          marginBottom: "1rem",
-          color: "#1d4ed8",
-        }}
-      >
-        Add a Birthday 🎉
+      <h2 style={{ fontSize: "2rem", marginBottom: "1rem", color: "#0284c7" }}>
+        ✏️ Edit Birthday
       </h2>
 
       <form
@@ -83,7 +97,9 @@ function AddBirthday() {
 
         <select
           value={group}
-          onChange={(e) => setGroup(e.target.value as typeof group)}
+          onChange={(e) =>
+            setGroup(e.target.value as "Preschool" | "Kindergarten" | "Toddler")
+          }
           required
           style={inputStyle}
         >
@@ -120,24 +136,17 @@ function AddBirthday() {
 
         <input
           type="text"
-          placeholder="Allergies (if any)"
-          value={allergies}
-          onChange={(e) => setAllergies(e.target.value)}
+          placeholder="Favorite Food"
+          value={favFood}
+          onChange={(e) => setFavFood(e.target.value)}
           style={inputStyle}
         />
 
         <input
           type="text"
-          placeholder="Custom Message (e.g. 'Loves dinosaurs 🦖')"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          style={inputStyle}
-        />
-
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => setPhoto(e.target.files?.[0] || null)}
+          placeholder="Allergies"
+          value={allergies}
+          onChange={(e) => setAllergies(e.target.value)}
           style={inputStyle}
         />
 
@@ -153,7 +162,7 @@ function AddBirthday() {
             cursor: "pointer",
           }}
         >
-          Add Birthday
+          Save Changes
         </button>
       </form>
     </div>
@@ -168,4 +177,4 @@ const inputStyle: React.CSSProperties = {
   outlineColor: "#3b82f6",
 };
 
-export default AddBirthday;
+export default EditBirthday;

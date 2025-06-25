@@ -56,13 +56,10 @@ function Login() {
         }}
       >
         <button onClick={() => navigate("/employee-role")} style={buttonStyle}>
-          👩‍🏫 Staff Login
+          Staff Login
         </button>
-        <button
-          onClick={() => navigate("/parent-dashboard")}
-          style={buttonStyle}
-        >
-          👪 Parent Login
+        <button onClick={() => navigate("/parent-login")} style={buttonStyle}>
+          Parent Login
         </button>
       </div>
       <div

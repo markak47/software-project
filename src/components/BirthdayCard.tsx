@@ -9,6 +9,7 @@ type Props = {
   picture?: string; // base64 or URL
   highlight?: boolean;
   onDelete?: () => void;
+  onEdit?: () => void;
 };
 
 function calculateAge(birthDateStr: string): number {
@@ -31,6 +32,7 @@ function calculateAge(birthDateStr: string): number {
 function BirthdayCard({
   name,
   group,
+  teacher,
   date,
   plan,
   favFood,
@@ -38,6 +40,7 @@ function BirthdayCard({
   picture,
   highlight,
   onDelete,
+  onEdit,
 }: Props) {
   return (
     <div
@@ -49,7 +52,7 @@ function BirthdayCard({
         backgroundColor: highlight ? "#d1fae5" : "#fffbe6",
         maxWidth: "500px",
         boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-        position: "relative", // needed for top-right image positioning
+        position: "relative",
       }}
     >
       {picture && (
@@ -82,6 +85,9 @@ function BirthdayCard({
         <strong>Group:</strong> {group}
       </p>
       <p>
+        <strong>Teacher:</strong> {teacher}
+      </p>
+      <p>
         <strong>Date:</strong> {new Date(date).toDateString()}
       </p>
       <p>
@@ -98,22 +104,38 @@ function BirthdayCard({
         </p>
       )}
 
-      {onDelete && (
-        <button
-          onClick={onDelete}
-          style={{
-            marginTop: "0.5rem",
-            padding: "0.5rem 1rem",
-            backgroundColor: "#ef4444",
-            color: "white",
-            border: "none",
-            borderRadius: "8px",
-            cursor: "pointer",
-          }}
-        >
-          Delete
-        </button>
-      )}
+      <div style={{ marginTop: "0.5rem", display: "flex", gap: "0.5rem" }}>
+        {onDelete && (
+          <button
+            onClick={onDelete}
+            style={{
+              padding: "0.5rem 1rem",
+              backgroundColor: "#ef4444",
+              color: "white",
+              border: "none",
+              borderRadius: "8px",
+              cursor: "pointer",
+            }}
+          >
+            Delete
+          </button>
+        )}
+        {onEdit && (
+          <button
+            onClick={onEdit}
+            style={{
+              padding: "0.5rem 1rem",
+              backgroundColor: "#facc15",
+              color: "#111",
+              border: "none",
+              borderRadius: "8px",
+              cursor: "pointer",
+            }}
+          >
+            Edit
+          </button>
+        )}
+      </div>
     </div>
   );
 }

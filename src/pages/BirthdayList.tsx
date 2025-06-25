@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { BirthdayContext } from "../context/BirthdayContext";
 import BirthdayCard from "../components/BirthdayCard";
 import "./BirthdayList.css";
+import { useNavigate } from "react-router-dom";
 
 function isUpcoming(dateStr: string): boolean {
   const today = new Date();
@@ -29,34 +30,28 @@ function isUpcoming(dateStr: string): boolean {
 
 function BirthdayList() {
   const { birthdays, deleteBirthday } = useContext(BirthdayContext);
+  const user = JSON.parse(localStorage.getItem("loggedInUser") || "{}");
+  const isParent = user?.role === "parent";
+  const navigate = useNavigate();
 
   const [selectedGroup, setSelectedGroup] = useState("");
   const [selectedTeacher, setSelectedTeacher] = useState("");
 
-  const filteredBirthdays = birthdays
+  const sortedAndFilteredBirthdays = birthdays
     .filter((b) => (selectedGroup ? b.group === selectedGroup : true))
     .filter((b) => (selectedTeacher ? b.teacher === selectedTeacher : true))
-    .sort((a, b) => {
-      const dateA = new Date(a.date);
-      const dateB = new Date(b.date);
+    .map((b) => {
       const today = new Date();
-
-      const nextA = new Date(
+      const birthDate = new Date(b.date);
+      let nextDate = new Date(
         today.getFullYear(),
-        dateA.getMonth(),
-        dateA.getDate()
+        birthDate.getMonth(),
+        birthDate.getDate()
       );
-      const nextB = new Date(
-        today.getFullYear(),
-        dateB.getMonth(),
-        dateB.getDate()
-      );
-
-      if (nextA < today) nextA.setFullYear(today.getFullYear() + 1);
-      if (nextB < today) nextB.setFullYear(today.getFullYear() + 1);
-
-      return nextA.getTime() - nextB.getTime();
-    });
+      if (nextDate < today) nextDate.setFullYear(today.getFullYear() + 1);
+      return { ...b, nextDate };
+    })
+    .sort((a, b) => a.nextDate.getTime() - b.nextDate.getTime());
 
   return (
     <div className="birthday-list-container">
@@ -94,7 +89,7 @@ function BirthdayList() {
       </div>
 
       <div className="birthday-list">
-        {filteredBirthdays.map((b) => (
+        {sortedAndFilteredBirthdays.map((b) => (
           <BirthdayCard
             key={b.id}
             name={b.name}
@@ -106,7 +101,13 @@ function BirthdayList() {
             allergies={b.allergies}
             picture={b.picture}
             highlight={isUpcoming(b.date)}
-            onDelete={() => deleteBirthday(b.id)}
+            onDelete={!isParent ? () => deleteBirthday(b.id) : undefined}
+            onEdit={
+              !isParent
+                ? () =>
+                    navigate(`/dashboard/teacher/birthday-planner/edit/${b.id}`)
+                : undefined
+            }
           />
         ))}
       </div>

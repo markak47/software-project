@@ -1,7 +1,12 @@
-// src/pages/ParentDashboard.tsx
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function ParentDashboard() {
+  const navigate = useNavigate();
+
+  const user = JSON.parse(localStorage.getItem("loggedInUser") || "{}");
+  const familyName = user?.username || "Parent";
+
   return (
     <div
       style={{
@@ -31,7 +36,7 @@ function ParentDashboard() {
             letterSpacing: "0.5px",
           }}
         >
-          👨‍👩‍👧‍👦 Parent Dashboard
+          Parent Dashboard
         </h1>
         <p
           style={{
@@ -41,8 +46,8 @@ function ParentDashboard() {
             fontSize: "1.1rem",
           }}
         >
-          Welcome! Here you can view your child's birthday plans and
-          preferences.
+          Welcome {familyName}'s family! here You can manage your child's
+          preferences below.
         </p>
         <div
           style={{
@@ -53,69 +58,34 @@ function ParentDashboard() {
           }}
         >
           <button
-            style={{
-              background: "linear-gradient(90deg, #60a5fa 0%, #2563eb 100%)",
-              color: "#fff",
-              padding: "0.9rem 2.2rem",
-              borderRadius: "10px",
-              border: "none",
-              fontSize: "1.1rem",
-              fontWeight: 600,
-              boxShadow: "0 2px 12px rgba(59,130,246,0.10)",
-              cursor: "pointer",
-              transition: "transform 0.12s, background 0.2s",
-            }}
-            onMouseOver={(e) =>
-              (e.currentTarget.style.transform = "scale(1.05)")
-            }
-            onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
+            onClick={() => navigate("/dashboard/parent/birthday-planner/add")}
+            style={buttonStyle("#60a5fa", "#2563eb")}
           >
-            📸 Add Child's Picture
+            🧸 Add Birthday Preferences
           </button>
           <button
-            style={{
-              background: "linear-gradient(90deg, #34d399 0%, #059669 100%)",
-              color: "#fff",
-              padding: "0.9rem 2.2rem",
-              borderRadius: "10px",
-              border: "none",
-              fontSize: "1.1rem",
-              fontWeight: 600,
-              boxShadow: "0 2px 12px rgba(16,185,129,0.10)",
-              cursor: "pointer",
-              transition: "transform 0.12s, background 0.2s",
-            }}
-            onMouseOver={(e) =>
-              (e.currentTarget.style.transform = "scale(1.05)")
-            }
-            onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
+            onClick={() => navigate("birthday-planner")}
+            style={buttonStyle("#60a5fa", "#2563eb")}
           >
-            Add Favorite Food
-          </button>
-          <button
-            style={{
-              background: "linear-gradient(90deg, #f87171 0%, #ef4444 100%)",
-              color: "#fff",
-              padding: "0.9rem 2.2rem",
-              borderRadius: "10px",
-              border: "none",
-              fontSize: "1.1rem",
-              fontWeight: 600,
-              boxShadow: "0 2px 12px rgba(239,68,68,0.10)",
-              cursor: "pointer",
-              transition: "transform 0.12s, background 0.2s",
-            }}
-            onMouseOver={(e) =>
-              (e.currentTarget.style.transform = "scale(1.05)")
-            }
-            onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
-          >
-            Add Allergies
+            🎉 Birthday Planner
           </button>
         </div>
-        {/* Future: Add birthday details for assignedChildName */}
       </div>
     </div>
   );
 }
+
+const buttonStyle = (from: string, to: string): React.CSSProperties => ({
+  background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)`,
+  color: "#fff",
+  padding: "0.9rem 2.2rem",
+  borderRadius: "10px",
+  border: "none",
+  fontSize: "1.1rem",
+  fontWeight: 600,
+  boxShadow: "0 2px 12px rgba(0,0,0,0.10)",
+  cursor: "pointer",
+  transition: "transform 0.12s, background 0.2s",
+});
+
 export default ParentDashboard;

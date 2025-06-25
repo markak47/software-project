@@ -30,7 +30,7 @@ function ManagerDashboard() {
           onClick={() => alert("Assigning tasks... (to be implemented)")}
           style={buttonStyle}
         >
-          📝 Assign Tasks
+          Manage employees
         </button>
 
         <button

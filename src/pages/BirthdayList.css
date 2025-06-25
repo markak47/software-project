@@ -39,3 +39,12 @@ select:focus {
   outline: none;
   border-color: #3b82f6;
 }
+.edit-button {
+  background-color: #facc15;
+  border: none;
+  border-radius: 6px;
+  padding: 0.3rem 0.6rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
