@@ -61,13 +61,13 @@ function ParentDashboard() {
             onClick={() => navigate("/dashboard/parent/birthday-planner/add")}
             style={buttonStyle("#60a5fa", "#2563eb")}
           >
-            🧸 Add Birthday Preferences
+            add child's data
           </button>
           <button
-            onClick={() => navigate("birthday-planner")}
+            onClick={() => navigate("/dashboard/parent/birthday-planner/list")}
             style={buttonStyle("#60a5fa", "#2563eb")}
           >
-            🎉 Birthday Planner
+            View upcoming Birthdays
           </button>
         </div>
       </div>

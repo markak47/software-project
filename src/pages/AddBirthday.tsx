@@ -33,7 +33,7 @@ function AddBirthday() {
     };
 
     addBirthday(newBirthday);
-    navigate("/birthdays");
+    navigate("/dashboard/teacher/birthday-planner");
   };
 
   return (
