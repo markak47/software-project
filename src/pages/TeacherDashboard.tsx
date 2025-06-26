@@ -26,11 +26,14 @@ function TeacherDashboard() {
         >
           🎉 Birthday Planner
         </button>
+        <button onClick={() => navigate("status-report")} style={buttonStyle}>
+          Status Report
+        </button>
         <button
-          onClick={() => alert("Assigning tasks... (to be implemented)")}
+          onClick={() => navigate("status-report/manage")}
           style={buttonStyle}
         >
-          🤒 Sick Report
+          View/edit Reports
         </button>
       </div>
     </div>

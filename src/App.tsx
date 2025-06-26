@@ -14,7 +14,11 @@ import ManagerDashboard from "./pages/ManagerDashboard";
 import BirthdayPlanner from "./pages/BirthdayPlanner";
 import BirthdayList from "./pages/BirthdayList";
 import AddBirthday from "./pages/AddBirthday";
-import EditBirthday from "./pages/EditBirthday"; // ✅ FIXED THIS LINE
+import EditBirthday from "./pages/EditBirthday";
+import TeacherStatusForm from "./pages/TeacherStatusForm";
+import StatusManager from "./pages/StatusManager";
+import ManageEmployees from "./pages/manageEmployees";
+import TeacherReportList from "./pages/TeacherReportList";
 
 function App() {
   return (
@@ -39,9 +43,26 @@ function App() {
           <Route index element={<BirthdayList />} />
           <Route path="add" element={<AddBirthday />} />
         </Route>
+        <Route
+          path="/dashboard/teacher/status-report"
+          element={<TeacherStatusForm />}
+        />
+        <Route
+          path="/dashboard/teacher/status-report/manage"
+          element={<StatusManager />}
+        />
 
         {/* 🧑‍💼 Manager Dashboard */}
         <Route path="/dashboard/manager" element={<ManagerDashboard />} />
+        <Route
+          path="/dashboard/manager/employees"
+          element={<ManageEmployees />}
+        />
+
+        <Route
+          path="/dashboard/manager/reports"
+          element={<TeacherReportList />}
+        />
 
         {/* 👨‍👩‍👧‍👦 Parent Dashboard */}
         <Route path="/dashboard/parent" element={<ParentDashboard />} />

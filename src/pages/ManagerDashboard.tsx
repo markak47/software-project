@@ -26,11 +26,8 @@ function ManagerDashboard() {
       </p>
 
       <div style={{ display: "flex", gap: "2rem" }}>
-        <button
-          onClick={() => alert("Assigning tasks... (to be implemented)")}
-          style={buttonStyle}
-        >
-          Manage employees
+        <button onClick={() => navigate("employees")} style={buttonStyle}>
+          Manage Employees
         </button>
 
         <button
