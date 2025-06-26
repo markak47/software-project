@@ -8,7 +8,7 @@ export type User = {
   role: Role;
   assignedChildName?: string;
   status?: AttendanceStatus;
-  approvedStatus?: AttendanceStatus;
+  absenceApproved?: boolean;
 };
 
 export const sampleUsers: User[] = [
