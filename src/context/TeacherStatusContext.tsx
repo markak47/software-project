@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import { useUserContext } from "./UserContext";
 
 export type StatusType = "illness" | "lateness" | "other";
 
@@ -19,6 +20,7 @@ type ContextType = {
   ) => void;
   deleteReport: (id: number) => void;
 };
+
 export function isPresent(username: string, reports: TeacherStatus[]): boolean {
   const today = new Date().toISOString().split("T")[0];
   return !reports.some((r) => r.name === username && r.date.startsWith(today));
@@ -37,6 +39,7 @@ export function TeacherStatusProvider({
   children: React.ReactNode;
 }) {
   const [reports, setReports] = useState<TeacherStatus[]>([]);
+  const { updateAttendance } = useUserContext(); // ✅ moved here
 
   const submitStatus: ContextType["submitStatus"] = ({
     name,
@@ -50,7 +53,15 @@ export function TeacherStatusProvider({
       details,
       date: new Date().toISOString(),
     };
-    setReports((prev) => [...prev, newReport]);
+
+    setReports((prevReports) => [...prevReports, newReport]);
+
+    // ✅ Update attendance
+    if (status === "illness" || status === "other") {
+      updateAttendance(name, "Absent");
+    } else if (status === "lateness") {
+      updateAttendance(name, "Late");
+    }
   };
 
   const updateReport: ContextType["updateReport"] = (id, updates) => {

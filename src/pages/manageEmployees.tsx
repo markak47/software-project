@@ -6,8 +6,10 @@ function ManageEmployees() {
   const { users, updateAttendance } = useUserContext();
   const employees = users.filter((user) => user.role !== "parent");
 
-  const handleApprove = (username: string) => {
-    updateAttendance(username, "Absent", true); // ✅ Approving absence
+  const handleApprove = (username: string, currentStatus: string) => {
+    // Ensure "Late" and "Absent" statuses can be approved
+    const statusToApprove = currentStatus === "Late" ? "Late" : "Absent";
+    updateAttendance(username, statusToApprove, true);
   };
 
   return (
@@ -23,7 +25,12 @@ function ManageEmployees() {
             borderRadius: "8px",
             padding: "1rem",
             marginBottom: "1rem",
-            backgroundColor: emp.status === "Absent" ? "#fef2f2" : "#ecfdf5",
+            backgroundColor:
+              emp.status === "Absent"
+                ? "#fef2f2"
+                : emp.status === "Late"
+                ? "#fef9c3"
+                : "#ecfdf5",
           }}
         >
           <p>
@@ -36,41 +43,50 @@ function ManageEmployees() {
             <strong>Status:</strong>{" "}
             <span
               style={{
-                color: emp.status === "Absent" ? "#dc2626" : "#16a34a",
+                color:
+                  emp.status === "Absent"
+                    ? "#dc2626"
+                    : emp.status === "Late"
+                    ? "#ca8a04"
+                    : "#16a34a",
                 fontWeight: "bold",
               }}
             >
               {emp.status || "Present"}
             </span>
-            {emp.status === "Absent" && emp.absenceApproved && (
+            {emp.approvedStatus && (
               <span
                 style={{
                   marginLeft: "0.5rem",
-                  fontWeight: "bold",
-                  color: "#16a34a",
+                  color: emp.status === "Late" ? "#ca8a04" : "#16a34a",
                 }}
               >
-                ✅ Approved
+                {emp.status === "Late"
+                  ? "🕒 Approved Lateness"
+                  : "✅ Approved Absence"}
               </span>
             )}
           </p>
 
-          {emp.status === "Absent" && !emp.absenceApproved && (
-            <button
-              onClick={() => handleApprove(emp.username)}
-              style={{
-                marginRight: "1rem",
-                padding: "0.5rem 1rem",
-                backgroundColor: "#22c55e",
-                color: "white",
-                border: "none",
-                borderRadius: "6px",
-                cursor: "pointer",
-              }}
-            >
-              ✅ Approve Absence
-            </button>
-          )}
+          {["Absent", "Late"].includes(emp.status || "") &&
+            !emp.approvedStatus && (
+              <button
+                onClick={() =>
+                  handleApprove(emp.username, emp.status || "Absent")
+                }
+                style={{
+                  marginRight: "1rem",
+                  padding: "0.5rem 1rem",
+                  backgroundColor: "#22c55e",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "6px",
+                  cursor: "pointer",
+                }}
+              >
+                ✅ Approve {emp.status}
+              </button>
+            )}
 
           {emp.role === "teacher" && (
             <button

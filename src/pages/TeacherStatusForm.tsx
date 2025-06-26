@@ -10,7 +10,7 @@ function TeacherStatusForm() {
   const [details, setDetails] = useState("");
 
   const { submitStatus } = useContext(TeacherStatusContext);
-  const { updateAttendance } = useUserContext(); // 👈 New attendance hook
+  const { updateAttendance } = useUserContext();
   const navigate = useNavigate();
 
   const user = JSON.parse(localStorage.getItem("loggedInUser") || "{}");
@@ -23,21 +23,24 @@ function TeacherStatusForm() {
       return;
     }
 
-    // ✅ Adjust presence based on status
-    const lowered = statusType.toLowerCase();
-    const isAbsent = lowered === "illness" || lowered === "lateness";
+    // ✅ Update attendance based on report
+    if (statusType === "illness") {
+      updateAttendance(user.username, "Absent");
+    } else if (statusType === "lateness") {
+      updateAttendance(user.username, "Late");
+    } else {
+      updateAttendance(user.username, "Present");
+    }
 
-    updateAttendance(user.username, isAbsent ? "Absent" : "Present");
-
-    // ✅ Submit the status report
+    // ✅ Submit the actual status report (no id/date, they are handled inside context)
     submitStatus({
       name: user.username,
       status: statusType,
       details,
     });
 
-    // ✅ Redirect to manager view of reports
-    navigate("/dashboard/teacher/status-report/manage");
+    // ✅ Navigate after successful submission
+    navigate("/dashboard/teacher/status-report/manage", { replace: true });
   };
 
   return (

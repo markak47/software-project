@@ -1,5 +1,5 @@
 export type Role = "teacher" | "parent" | "manager";
-export type AttendanceStatus = "Present" | "Absent";
+export type AttendanceStatus = "Present" | "Absent" | "Late";
 
 export type User = {
   id: number;
@@ -8,7 +8,7 @@ export type User = {
   role: Role;
   assignedChildName?: string;
   status?: AttendanceStatus;
-  absenceApproved?: boolean;
+  approvedStatus?: AttendanceStatus;
 };
 
 export const sampleUsers: User[] = [
