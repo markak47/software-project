@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { useAttendance } from "../hooks/useAttendance";
+import DaycareTimeline from "../components/TimeLine"; // Make sure this import exists
 
 function Login() {
   const navigate = useNavigate();
@@ -235,6 +236,34 @@ function Login() {
         </button>
       </div>
 
+      {/* Daycare description */}
+      <p
+        style={{
+          position: "absolute",
+          top: "570px",
+          right: "150px",
+          width: "30%",
+          display: "table-cell",
+          fontFamily: "Georgia, serif",
+          fontSize: "1.5rem",
+          color: "#f5f5f5",
+          margin: 0,
+          fontWeight: 300,
+        }}
+      >
+        "Since 2014, the Museumsplatz daycare has been located in a historic
+        building near Harburg Town Hall and offers space for around 350 children
+        across ten groups. The spacious facility includes highlights like the
+        grand “Meistersaal” for climbing and play, regular excursions, and
+        creative activities. We place a strong emphasis on language development
+        and inclusion. As a certified “House of Little Scientists,” we focus on
+        early STEM education and sustainability, recognized with the KITA21
+        award. Children enjoy a paddling room, swimming lessons in our own
+        teaching pool, and multi-day trips to the seaside. Healthy, fresh
+        organic meals complete our holistic care concept."
+      </p>
+
+      {/* Timeline heading */}
       <p
         style={{
           position: "absolute",
@@ -246,8 +275,19 @@ function Login() {
           fontWeight: 300,
         }}
       >
-        Activities & Ressources
+        Activities & Resources
       </p>
+
+      {/* Timeline component */}
+      <div
+        style={{
+          marginTop: "1100px",
+          width: "80%",
+          maxWidth: "1000px",
+        }}
+      >
+        <DaycareTimeline />
+      </div>
     </div>
   );
 }

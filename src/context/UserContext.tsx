@@ -1,8 +1,9 @@
+// ✅ UserContext.tsx
 import React, { createContext, useContext, useState } from "react";
 import { sampleUsers } from "../data/sampleUsers";
 import type { User } from "../data/sampleUsers";
 
-type AttendanceStatus = "Present" | "Absent" | "Late";
+export type AttendanceStatus = "Present" | "Absent" | "Late";
 
 type UserContextType = {
   users: User[];
@@ -17,21 +18,19 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [users, setUsers] = useState<User[]>(sampleUsers);
+
   const updateAttendance = (
     username: string,
     status: AttendanceStatus,
     approved: boolean = false
   ) => {
-    setUsers((prevUsers) =>
-      prevUsers.map((user) => {
-        if (user.username !== username) return user;
-
-        return {
-          ...user,
-          status: status as User["status"],
-          absenceApproved: status === "Absent" ? approved : undefined,
-        };
-      })
+    console.log("Updating attendance:", username, status, approved);
+    setUsers((prev) =>
+      prev.map((user) =>
+        user.username === username
+          ? { ...user, status, absenceApproved: approved }
+          : user
+      )
     );
   };
 

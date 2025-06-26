@@ -1,7 +1,7 @@
+// ✅ TeacherStatusForm.tsx
 import { useState, useContext } from "react";
 import { TeacherStatusContext } from "../context/TeacherStatusContext";
 import { useNavigate } from "react-router-dom";
-import { useUserContext } from "../context/UserContext";
 
 function TeacherStatusForm() {
   const [statusType, setStatusType] = useState<
@@ -10,36 +10,19 @@ function TeacherStatusForm() {
   const [details, setDetails] = useState("");
 
   const { submitStatus } = useContext(TeacherStatusContext);
-  const { updateAttendance } = useUserContext();
   const navigate = useNavigate();
-
   const user = JSON.parse(localStorage.getItem("loggedInUser") || "{}");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!user?.username) return alert("Not logged in");
 
-    if (!user?.username) {
-      alert("Not logged in");
-      return;
-    }
-
-    // ✅ Update attendance based on report
-    if (statusType === "illness") {
-      updateAttendance(user.username, "Absent");
-    } else if (statusType === "lateness") {
-      updateAttendance(user.username, "Late");
-    } else {
-      updateAttendance(user.username, "Present");
-    }
-
-    // ✅ Submit the actual status report (no id/date, they are handled inside context)
     submitStatus({
       name: user.username,
       status: statusType,
       details,
     });
 
-    // ✅ Navigate after successful submission
     navigate("/dashboard/teacher/status-report/manage", { replace: true });
   };
 
