@@ -1,4 +1,5 @@
 export type Role = "teacher" | "parent" | "manager";
+export type AttendanceStatus = "Present" | "Absent";
 
 export type User = {
   id: number;
@@ -6,6 +7,8 @@ export type User = {
   password: string;
   role: Role;
   assignedChildName?: string;
+  status?: AttendanceStatus;
+  absenceApproved?: boolean;
 };
 
 export const sampleUsers: User[] = [
@@ -14,14 +17,15 @@ export const sampleUsers: User[] = [
     username: "anna",
     password: "teacher123",
     role: "teacher",
+    status: "Present",
   },
   {
     id: 2,
     username: "tom",
     password: "teacher123",
     role: "teacher",
+    status: "Present",
   },
-
   {
     id: 3,
     username: "smith",
@@ -50,8 +54,6 @@ export const sampleUsers: User[] = [
     role: "parent",
     assignedChildName: "Elias",
   },
-
-  // 🧑‍💼 Manager
   {
     id: 7,
     username: "manager",

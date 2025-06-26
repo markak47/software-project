@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { TeacherStatusContext } from "../context/TeacherStatusContext";
 import { useNavigate } from "react-router-dom";
+import { useUserContext } from "../context/UserContext";
 
 function TeacherStatusForm() {
   const [statusType, setStatusType] = useState<
@@ -9,6 +10,7 @@ function TeacherStatusForm() {
   const [details, setDetails] = useState("");
 
   const { submitStatus } = useContext(TeacherStatusContext);
+  const { updateAttendance } = useUserContext(); // 👈 New attendance hook
   const navigate = useNavigate();
 
   const user = JSON.parse(localStorage.getItem("loggedInUser") || "{}");
@@ -21,12 +23,20 @@ function TeacherStatusForm() {
       return;
     }
 
+    // ✅ Adjust presence based on status
+    const lowered = statusType.toLowerCase();
+    const isAbsent = lowered === "illness" || lowered === "lateness";
+
+    updateAttendance(user.username, isAbsent ? "Absent" : "Present");
+
+    // ✅ Submit the status report
     submitStatus({
       name: user.username,
       status: statusType,
       details,
     });
 
+    // ✅ Redirect to manager view of reports
     navigate("/dashboard/teacher/status-report/manage");
   };
 
@@ -44,21 +54,29 @@ function TeacherStatusForm() {
           marginTop: "1rem",
         }}
       >
+        <label>Status Type</label>
         <select
           value={statusType}
           onChange={(e) => setStatusType(e.target.value as any)}
+          style={{ padding: "0.5rem", borderRadius: "8px" }}
         >
           <option value="illness">Illness</option>
           <option value="lateness">Lateness</option>
           <option value="other">Other</option>
         </select>
 
+        <label>Optional Details</label>
         <textarea
-          placeholder="Optional details..."
+          placeholder="Details (optional)..."
           value={details}
           onChange={(e) => setDetails(e.target.value)}
           rows={4}
-          style={{ resize: "none" }}
+          style={{
+            resize: "none",
+            borderRadius: "8px",
+            padding: "0.5rem",
+            border: "1px solid #ccc",
+          }}
         />
 
         <button
@@ -67,10 +85,13 @@ function TeacherStatusForm() {
             padding: "0.6rem",
             background: "#3b82f6",
             color: "white",
+            border: "none",
             borderRadius: "8px",
+            fontWeight: "bold",
+            cursor: "pointer",
           }}
         >
-          Submit
+          ✅ Submit
         </button>
       </form>
     </div>

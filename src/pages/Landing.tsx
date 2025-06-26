@@ -1,23 +1,28 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
+import { useAttendance } from "../hooks/useAttendance";
 
 function Login() {
   const navigate = useNavigate();
+
   const team = [
     {
       name: "Natalya Yanitska",
+      username: "natalya",
       role: "House Management",
       img: "https://sternipark.de/media/images/Museumspl.edfd3d6a.fill-600x360.format-webp.frame-kitas.webp",
       desc: "Alice brings 10 years of early childhood education experience to our daycare.",
     },
     {
       name: "Bob Johnson",
+      username: "bob",
       role: "Assistant Teacher",
       img: "https://randomuser.me/api/portraits/men/46.jpg",
       desc: "Bob is passionate about helping children learn and grow in a safe environment.",
     },
     {
       name: "Carol Lee",
+      username: "carol",
       role: "Nutritionist",
       img: "https://randomuser.me/api/portraits/women/65.jpg",
       desc: "Carol ensures all our meals are healthy and delicious for every child.",
@@ -25,6 +30,7 @@ function Login() {
   ];
 
   const [current, setCurrent] = useState(0);
+  const isPresent = useAttendance(team[current].name);
 
   const nextSlide = () => setCurrent((prev) => (prev + 1) % team.length);
   const prevSlide = () =>
@@ -45,6 +51,7 @@ function Login() {
         position: "relative",
       }}
     >
+      {/* Navigation Buttons */}
       <div
         style={{
           position: "absolute",
@@ -62,6 +69,7 @@ function Login() {
           Parent Login
         </button>
       </div>
+
       <div
         style={{
           position: "absolute",
@@ -85,7 +93,7 @@ function Login() {
         <button
           onClick={() =>
             window.open(
-              "https://www.google.de/maps/dir//Museumspl.+1,+21073+Hamburg/@53.4585604,9.9721184,16z/data=!4m8!4m7!1m0!1m5!1m1!1s0x47b191af00525999:0xe069898cd8f129ec!2m2!1d9.9772683!2d53.4585541?entry=ttu&g_ep=EgoyMDI1MDYxNy4wIKXMDSoASAFQAw%3D%3D"
+              "https://www.google.de/maps/dir//Museumspl.+1,+21073+Hamburg/@53.4585604,9.9721184,16z"
             )
           }
           style={buttonStyle}
@@ -93,6 +101,7 @@ function Login() {
           📍 Location
         </button>
       </div>
+
       <div
         style={{
           position: "absolute",
@@ -110,6 +119,7 @@ function Login() {
           Welcome to the Daycare App
         </h1>
       </div>
+
       <p
         style={{
           position: "absolute",
@@ -122,6 +132,7 @@ function Login() {
       >
         Your personal assistant for daycare management
       </p>
+
       <p
         style={{
           position: "absolute",
@@ -135,7 +146,8 @@ function Login() {
       >
         Our Team
       </p>
-      {/* Slideshow below Our Team */}
+
+      {/* Slideshow */}
       <div
         style={{
           position: "absolute",
@@ -165,6 +177,7 @@ function Login() {
         >
           &lt;
         </button>
+
         <img
           src={team[current].img}
           alt={team[current].name}
@@ -177,6 +190,7 @@ function Login() {
             border: "3px solid #fff",
           }}
         />
+
         <div>
           <h2 style={{ margin: 0, color: "#fff" }}>{team[current].name}</h2>
           <h4 style={{ margin: "4px 0", color: "#ffe082" }}>
@@ -185,7 +199,27 @@ function Login() {
           <p style={{ color: "#f5f5f5", maxWidth: "220px" }}>
             {team[current].desc}
           </p>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              marginTop: "0.5rem",
+            }}
+          >
+            <span
+              style={{
+                width: "10px",
+                height: "10px",
+                borderRadius: "50%",
+                backgroundColor:
+                  isPresent === "Present" ? "#22c55e" : "#f87171",
+                marginRight: "8px",
+              }}
+            ></span>
+            <span style={{ color: "#fff" }}>{isPresent}</span>
+          </div>
         </div>
+
         <button
           onClick={nextSlide}
           style={{
@@ -200,6 +234,7 @@ function Login() {
           &gt;
         </button>
       </div>
+
       <p
         style={{
           position: "absolute",

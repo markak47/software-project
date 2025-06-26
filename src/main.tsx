@@ -6,6 +6,7 @@ import "./index.css";
 import { AuthProvider } from "./context/AuthContext";
 import { BirthdayProvider } from "./context/BirthdayContext";
 import { TeacherStatusProvider } from "./context/TeacherStatusContext"; // ✅ Import your new context
+import { UserProvider } from "./context/UserContext";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -13,7 +14,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <BirthdayProvider>
         <TeacherStatusProvider>
           {" "}
-          <App />
+          <UserProvider>
+            {" "}
+            <App />
+          </UserProvider>
         </TeacherStatusProvider>
       </BirthdayProvider>
     </AuthProvider>

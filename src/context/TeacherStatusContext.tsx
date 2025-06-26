@@ -19,6 +19,10 @@ type ContextType = {
   ) => void;
   deleteReport: (id: number) => void;
 };
+export function isPresent(username: string, reports: TeacherStatus[]): boolean {
+  const today = new Date().toISOString().split("T")[0];
+  return !reports.some((r) => r.name === username && r.date.startsWith(today));
+}
 
 export const TeacherStatusContext = createContext<ContextType>({
   reports: [],
