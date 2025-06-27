@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 
-export type StatusType = "illness" | "lateness" | "other";
+export type StatusType = "Absent" | "Late" | "other";
 
 export type TeacherStatus = {
   id: number;

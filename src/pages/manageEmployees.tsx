@@ -67,7 +67,6 @@ function ManageEmployees() {
             )}
           </p>
 
-          {/* ✅ Show approve button only for unapproved absence */}
           {emp.status === "Absent" && !emp.absenceApproved && (
             <button
               onClick={() => handleApprove(emp.username)}
@@ -84,8 +83,6 @@ function ManageEmployees() {
               ✅ Approve Absence
             </button>
           )}
-
-          {/* 📄 View report always for teachers */}
           {emp.role === "teacher" && (
             <button
               onClick={() =>

@@ -1,4 +1,3 @@
-// ✅ UserContext.tsx
 import React, { createContext, useContext, useState } from "react";
 import { sampleUsers } from "../data/sampleUsers";
 import type { User } from "../data/sampleUsers";
@@ -24,11 +23,14 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     status: AttendanceStatus,
     approved: boolean = false
   ) => {
-    console.log("Updating attendance:", username, status, approved);
     setUsers((prev) =>
       prev.map((user) =>
         user.username === username
-          ? { ...user, status, absenceApproved: approved }
+          ? {
+              ...user,
+              status,
+              absenceApproved: status === "Absent" ? approved : false,
+            }
           : user
       )
     );

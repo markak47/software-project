@@ -1,15 +1,17 @@
 // ✅ TeacherStatusForm.tsx
 import { useState, useContext } from "react";
 import { TeacherStatusContext } from "../context/TeacherStatusContext";
+import { useUserContext } from "../context/UserContext"; // ✅ Add this
 import { useNavigate } from "react-router-dom";
 
 function TeacherStatusForm() {
-  const [statusType, setStatusType] = useState<
-    "illness" | "lateness" | "other"
-  >("illness");
+  const [statusType, setStatusType] = useState<"Absent" | "Late" | "other">(
+    "Absent"
+  );
   const [details, setDetails] = useState("");
 
   const { submitStatus } = useContext(TeacherStatusContext);
+  const { updateAttendance } = useUserContext(); // ✅ Get updateAttendance
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("loggedInUser") || "{}");
 
@@ -17,6 +19,12 @@ function TeacherStatusForm() {
     e.preventDefault();
     if (!user?.username) return alert("Not logged in");
 
+    // ✅ Update status in the attendance system
+    if (statusType === "Absent" || statusType === "Late") {
+      updateAttendance(user.username, statusType);
+    }
+
+    // ✅ Submit the report (for manager view)
     submitStatus({
       name: user.username,
       status: statusType,
@@ -46,8 +54,8 @@ function TeacherStatusForm() {
           onChange={(e) => setStatusType(e.target.value as any)}
           style={{ padding: "0.5rem", borderRadius: "8px" }}
         >
-          <option value="illness">Illness</option>
-          <option value="lateness">Lateness</option>
+          <option value="Absent">Absent</option>
+          <option value="Late">Late</option>
           <option value="other">Other</option>
         </select>
 
