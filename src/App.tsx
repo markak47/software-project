@@ -19,6 +19,7 @@ import TeacherStatusForm from "./pages/TeacherStatusForm";
 import StatusManager from "./pages/StatusManager";
 import ManageEmployees from "./pages/manageEmployees";
 import TeacherReportList from "./pages/TeacherReportList";
+import BirthdayScreen from "./pages/BirthdayScreen";
 
 function App() {
   return (
@@ -80,6 +81,10 @@ function App() {
         <Route
           path="/dashboard/teacher/birthday-planner/edit/:id"
           element={<EditBirthday />}
+        />
+        <Route
+          path="/dashboard/teacher/birthday-screen"
+          element={<BirthdayScreen />}
         />
         <Route
           path="/dashboard/parent/birthday-planner/edit/:id"

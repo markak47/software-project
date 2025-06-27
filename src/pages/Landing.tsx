@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { useAttendance } from "../hooks/useAttendance";
 import DaycareTimeline from "../components/TimeLine"; // Make sure this import exists
-import myPhoto from "../assets/Ali.JPG";
+import myPhoto from "../assets/Ali.png";
 
 function Login() {
   const navigate = useNavigate();
@@ -117,9 +117,7 @@ function Login() {
           zIndex: 10,
         }}
       >
-        <h1
-          style={{ fontSize: "4rem", marginBottom: "1rem", color: "#ffff" }}
-        >
+        <h1 style={{ fontSize: "4rem", marginBottom: "1rem", color: "#ffff" }}>
           Welcome to the Daycare App
         </h1>
       </div>
@@ -156,7 +154,7 @@ function Login() {
         style={{
           position: "relative",
           top: "290px",
-          left: "-20%",
+          left: "-25%",
           display: "flex",
           alignItems: "center",
           background: "rgba(255,255,255,0.2)",
@@ -245,7 +243,7 @@ function Login() {
           position: "relative",
           top: "-25px",
           right: "-28%",
-          width: "35%",
+          width: "45%",
           display: "table-cell",
           fontFamily: "Georgia, serif",
           fontSize: "2rem",

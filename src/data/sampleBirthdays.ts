@@ -11,7 +11,7 @@ export const sampleBirthdays: Birthday[] = [
     name: "Lina",
     group: "Preschool",
     teacher: "Ms. Anna",
-    date: "2019-07-10",
+    date: "2019-06-28",
     plan: "Cupcakes and drawings",
     allergies: "None",
     message: "Loves unicorns 🦄",

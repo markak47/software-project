@@ -1,35 +1,22 @@
-type Props = {
+import React from "react";
+
+interface BirthdayCardProps {
   name: string;
-  group: "Preschool" | "Kindergarten" | "Toddler";
+  group: string;
   teacher: string;
   date: string;
   plan: string;
   favFood?: string;
   allergies?: string;
-  picture?: string; // base64 or URL
+  message?: string;
+  picture?: string;
   highlight?: boolean;
-  onDelete?: () => void;
   onEdit?: () => void;
-};
-
-function calculateAge(birthDateStr: string): number {
-  const today = new Date();
-  const birthDate = new Date(birthDateStr);
-  let age = today.getFullYear() - birthDate.getFullYear();
-
-  const hasHadBirthdayThisYear =
-    today.getMonth() > birthDate.getMonth() ||
-    (today.getMonth() === birthDate.getMonth() &&
-      today.getDate() >= birthDate.getDate());
-
-  if (!hasHadBirthdayThisYear) {
-    age--;
-  }
-
-  return age;
+  onDelete?: () => void;
+  onScreen?: () => void; // ✅ New prop
 }
 
-function BirthdayCard({
+const BirthdayCard: React.FC<BirthdayCardProps> = ({
   name,
   group,
   teacher,
@@ -37,107 +24,143 @@ function BirthdayCard({
   plan,
   favFood,
   allergies,
+  message,
   picture,
   highlight,
-  onDelete,
   onEdit,
-}: Props) {
+  onDelete,
+  onScreen, // ✅ New prop
+}) => {
+  const cardStyle: React.CSSProperties = {
+    backgroundColor: highlight ? "#d1fae5" : "#e0f2fe",
+    border: "2px solid #cbd5e1",
+    borderRadius: "12px",
+    padding: "1.5rem",
+    marginBottom: "1rem",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+    position: "relative",
+  };
+
+  const textStyle: React.CSSProperties = {
+    flex: 1,
+  };
+
+  const imageStyle: React.CSSProperties = {
+    width: "100px",
+    height: "100px",
+    borderRadius: "50%",
+    objectFit: "cover",
+    marginLeft: "1.5rem",
+    border: "3px solid #94a3b8",
+    backgroundColor: "#fff",
+  };
+
+  const buttonStyle: React.CSSProperties = {
+    padding: "0.5rem 1rem",
+    border: "none",
+    borderRadius: "8px",
+    cursor: "pointer",
+    fontWeight: "bold",
+    fontSize: "0.9rem",
+  };
+
   return (
-    <div
-      style={{
-        border: "2px solid #ccc",
-        borderRadius: "12px",
-        padding: "1rem",
-        marginBottom: "1rem",
-        backgroundColor: highlight ? "#d1fae5" : "#fffbe6",
-        maxWidth: "500px",
-        boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-        position: "relative",
-      }}
-    >
-      {picture && (
-        <img
-          src={picture}
-          alt={`${name}'s photo`}
+    <div style={cardStyle}>
+      <div style={textStyle}>
+        <h3
           style={{
-            position: "absolute",
-            top: "1rem",
-            right: "1rem",
-            width: "128px",
-            height: "128px",
-            objectFit: "cover",
-            borderRadius: "50%",
-            border: "2px solid #ccc",
+            fontSize: "1.5rem",
+            color: "#047857",
+            marginBottom: "0.5rem",
           }}
-        />
-      )}
-
-      <h3
-        style={{ color: highlight ? "#059669" : "#ff6f61", fontSize: "1.5rem" }}
-      >
-        {name} {highlight && "🎁"}
-      </h3>
-
-      <p>
-        <strong>Age:</strong> {calculateAge(date)} years
-      </p>
-      <p>
-        <strong>Group:</strong> {group}
-      </p>
-      <p>
-        <strong>Teacher:</strong> {teacher}
-      </p>
-      <p>
-        <strong>Date:</strong> {new Date(date).toDateString()}
-      </p>
-      <p>
-        <strong>Plan:</strong> {plan}
-      </p>
-      {favFood && (
+        >
+          {name} 🎁
+        </h3>
         <p>
-          <strong>Fav Food:</strong> {favFood}
+          <strong>Age:</strong>{" "}
+          {new Date().getFullYear() - new Date(date).getFullYear()} years
         </p>
-      )}
-      {allergies && (
         <p>
-          <strong>Allergies:</strong> {allergies}
+          <strong>Group:</strong> {group}
         </p>
-      )}
+        <p>
+          <strong>Teacher:</strong> {teacher}
+        </p>
+        <p>
+          <strong>Date:</strong> {new Date(date).toDateString()}
+        </p>
+        <p>
+          <strong>Plan:</strong> {plan}
+        </p>
+        {favFood && (
+          <p>
+            <strong>Favorite Food:</strong> {favFood}
+          </p>
+        )}
+        {allergies && (
+          <p>
+            <strong>Allergies:</strong> {allergies}
+          </p>
+        )}
+        {message && (
+          <p>
+            <strong>Note:</strong> {message}
+          </p>
+        )}
 
-      <div style={{ marginTop: "0.5rem", display: "flex", gap: "0.5rem" }}>
-        {onDelete && (
-          <button
-            onClick={onDelete}
-            style={{
-              padding: "0.5rem 1rem",
-              backgroundColor: "#ef4444",
-              color: "white",
-              border: "none",
-              borderRadius: "8px",
-              cursor: "pointer",
-            }}
-          >
-            Delete
-          </button>
-        )}
-        {onEdit && (
-          <button
-            onClick={onEdit}
-            style={{
-              padding: "0.5rem 1rem",
-              backgroundColor: "#facc15",
-              color: "#111",
-              border: "none",
-              borderRadius: "8px",
-              cursor: "pointer",
-            }}
-          >
-            Edit
-          </button>
-        )}
+        <div
+          style={{
+            marginTop: "1rem",
+            display: "flex",
+            gap: "0.5rem",
+            flexWrap: "wrap",
+          }}
+        >
+          {onDelete && (
+            <button
+              onClick={onDelete}
+              style={{
+                ...buttonStyle,
+                backgroundColor: "#ef4444",
+                color: "white",
+              }}
+            >
+              Delete
+            </button>
+          )}
+          {onEdit && (
+            <button
+              onClick={onEdit}
+              style={{
+                ...buttonStyle,
+                backgroundColor: "#facc15",
+                color: "black",
+              }}
+            >
+              Edit
+            </button>
+          )}
+          {onScreen && (
+            <button
+              onClick={onScreen}
+              style={{
+                ...buttonStyle,
+                backgroundColor: "#facc15",
+                color: "black",
+              }}
+            >
+              🎬 Screen
+            </button>
+          )}
+        </div>
       </div>
+
+      {picture && <img src={picture} alt="child" style={imageStyle} />}
     </div>
   );
-}
+};
 
 export default BirthdayCard;

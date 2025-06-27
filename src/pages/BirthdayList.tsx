@@ -90,25 +90,56 @@ function BirthdayList() {
 
       <div className="birthday-list">
         {sortedAndFilteredBirthdays.map((b) => (
-          <BirthdayCard
+          <div
             key={b.id}
-            name={b.name}
-            group={b.group}
-            teacher={b.teacher}
-            date={b.date}
-            plan={b.plan}
-            favFood={b.favFood}
-            allergies={b.allergies}
-            picture={b.picture}
-            highlight={isUpcoming(b.date)}
-            onDelete={!isParent ? () => deleteBirthday(b.id) : undefined}
-            onEdit={
-              !isParent
-                ? () =>
-                    navigate(`/dashboard/teacher/birthday-planner/edit/${b.id}`)
-                : undefined
-            }
-          />
+            style={{ position: "relative", marginBottom: "1rem" }}
+          >
+            <BirthdayCard
+              name={b.name}
+              group={b.group}
+              teacher={b.teacher}
+              date={b.date}
+              plan={b.plan}
+              favFood={b.favFood}
+              allergies={b.allergies}
+              picture={b.picture}
+              highlight={isUpcoming(b.date)}
+              onDelete={!isParent ? () => deleteBirthday(b.id) : undefined}
+              onEdit={
+                !isParent
+                  ? () =>
+                      navigate(
+                        `/dashboard/teacher/birthday-planner/edit/${b.id}`
+                      )
+                  : undefined
+              }
+            />
+            {/* 🎬 Screen button for upcoming birthdays */}
+            {isUpcoming(b.date) && !isParent && (
+              <button
+                onClick={() =>
+                  navigate("/dashboard/teacher/birthday-screen", {
+                    state: { name: b.name, picture: b.picture },
+                  })
+                }
+                style={{
+                  position: "absolute",
+                  top: "1rem",
+                  right: "1rem",
+                  padding: "0.4rem 0.7rem",
+                  fontSize: "0.85rem",
+                  backgroundColor: "#facc15",
+                  color: "#000",
+                  border: "none",
+                  borderRadius: "6px",
+                  cursor: "pointer",
+                  boxShadow: "0 1px 4px rgba(0,0,0,0.1)",
+                }}
+              >
+                🎬 Screen
+              </button>
+            )}
+          </div>
         ))}
       </div>
     </div>
