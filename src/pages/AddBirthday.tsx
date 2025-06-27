@@ -29,7 +29,7 @@ function AddBirthday() {
       plan,
       allergies,
       message,
-      photoUrl: photo ? URL.createObjectURL(photo) : null, // For now just preview
+      picture: photo ? URL.createObjectURL(photo) : undefined, // ✅ matches sample data
     };
 
     addBirthday(newBirthday);
