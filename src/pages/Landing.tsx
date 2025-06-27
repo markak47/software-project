@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { useAttendance } from "../hooks/useAttendance";
 import DaycareTimeline from "../components/TimeLine"; // Make sure this import exists
+import myPhoto from "../assets/Ali.JPG";
 
 function Login() {
   const navigate = useNavigate();
@@ -15,11 +16,11 @@ function Login() {
       desc: "Alice brings 10 years of early childhood education experience to our daycare.",
     },
     {
-      name: "Bob Johnson",
-      username: "bob",
+      name: "Ali Calmac",
+      username: "ali",
       role: "Assistant Teacher",
-      img: "https://randomuser.me/api/portraits/men/46.jpg",
-      desc: "Bob is passionate about helping children learn and grow in a safe environment.",
+      img: myPhoto,
+      desc: "Ali is passionate about children learn and grow in a safe environment.",
     },
     {
       name: "Carol Lee",
@@ -40,24 +41,26 @@ function Login() {
   return (
     <div
       style={{
-        minHeight: "250vh",
+        minHeight: "100vh",
+        position: "relative",
         background:
-          "linear-gradient(to top,rgb(245, 233, 215),rgb(217, 130, 7))",
+          "linear-gradient(to top,rgba(186, 141, 236, 0.81),rgb(217, 130, 7))",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
         fontFamily: "Roboto, sans-serif",
-        fontWeight: "thinner",
-        position: "relative",
+        fontWeight: 300,
+        padding: "2rem",
+        gap: "3rem",
+        color: "#f5f5f5",
       }}
     >
       {/* Navigation Buttons */}
       <div
         style={{
           position: "absolute",
-          top: "30px",
-          right: "40px",
+          top: "1.5%",
+          right: "2%",
           display: "flex",
           gap: "1rem",
           zIndex: 10,
@@ -74,8 +77,8 @@ function Login() {
       <div
         style={{
           position: "absolute",
-          top: "30px",
-          left: "40px",
+          top: "1.5%",
+          left: "2%",
           display: "flex",
           gap: "1rem",
           zIndex: 10,
@@ -105,8 +108,8 @@ function Login() {
 
       <div
         style={{
-          position: "absolute",
-          top: "225px",
+          position: "relative",
+          top: "250px",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -115,7 +118,7 @@ function Login() {
         }}
       >
         <h1
-          style={{ fontSize: "3.5rem", marginBottom: "1rem", color: "#ffff" }}
+          style={{ fontSize: "4rem", marginBottom: "1rem", color: "#ffff" }}
         >
           Welcome to the Daycare App
         </h1>
@@ -123,9 +126,9 @@ function Login() {
 
       <p
         style={{
-          position: "absolute",
-          top: "325px",
-          fontSize: "1.2rem",
+          position: "relative",
+          top: "200px",
+          fontSize: "1.5rem",
           color: "#f5f5f5",
           margin: 0,
           fontWeight: 300,
@@ -136,9 +139,9 @@ function Login() {
 
       <p
         style={{
-          position: "absolute",
-          top: "500px",
-          left: "150px",
+          position: "relative",
+          top: "330px",
+          left: "-41%",
           fontSize: "2.5rem",
           color: "#f5f5f5",
           margin: 0,
@@ -151,14 +154,14 @@ function Login() {
       {/* Slideshow */}
       <div
         style={{
-          position: "absolute",
-          top: "570px",
-          left: "150px",
+          position: "relative",
+          top: "290px",
+          left: "-20%",
           display: "flex",
           alignItems: "center",
           background: "rgba(255,255,255,0.2)",
-          borderRadius: "16px",
-          padding: "24px 32px",
+          borderRadius: "5%",
+          padding: "2% 5%",
           boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
           minWidth: "420px",
           minHeight: "220px",
@@ -183,8 +186,8 @@ function Login() {
           src={team[current].img}
           alt={team[current].name}
           style={{
-            width: "200px",
-            height: "200px",
+            width: "205px",
+            height: "205px",
             borderRadius: "50%",
             objectFit: "cover",
             marginRight: "32px",
@@ -239,13 +242,13 @@ function Login() {
       {/* Daycare description */}
       <p
         style={{
-          position: "absolute",
-          top: "570px",
-          right: "150px",
-          width: "30%",
+          position: "relative",
+          top: "-25px",
+          right: "-28%",
+          width: "35%",
           display: "table-cell",
           fontFamily: "Georgia, serif",
-          fontSize: "1.5rem",
+          fontSize: "2rem",
           color: "#f5f5f5",
           margin: 0,
           fontWeight: 300,
@@ -266,9 +269,9 @@ function Login() {
       {/* Timeline heading */}
       <p
         style={{
-          position: "absolute",
-          top: "950px",
-          left: "150px",
+          position: "relative",
+          top: "100px",
+          left: "-35%",
           fontSize: "2.5rem",
           color: "#f5f5f5",
           margin: 0,
@@ -281,9 +284,10 @@ function Login() {
       {/* Timeline component */}
       <div
         style={{
-          marginTop: "1100px",
-          width: "80%",
-          maxWidth: "1000px",
+          marginTop: "100px",
+          width: "100%",
+          maxWidth: "1200px",
+          color: "#000000",
         }}
       >
         <DaycareTimeline />
