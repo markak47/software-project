@@ -154,7 +154,7 @@ function Login() {
         style={{
           position: "relative",
           top: "290px",
-          left: "-25%",
+          left: "-28%",
           display: "flex",
           alignItems: "center",
           background: "rgba(255,255,255,0.2)",
