@@ -1,11 +1,47 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { useAttendance } from "../hooks/useAttendance";
-import DaycareTimeline from "../components/TimeLine"; // Make sure this import exists
-import myPhoto from "../assets/Ali.png";
+import DaycareTimeline from "../components/TimeLine"; 
+import EmployeeRoleModal from "./EmployeeRole";
+import ParentLoginModal from "./ParentLogin";
+import TeacherLoginModal from "./TeacherLogin";
+import ManagerLoginModal from "./ManagerLogin";
+import myPhoto from "../assets/Ali.png"; // Adjust the path as necessary
 
 function Login() {
   const navigate = useNavigate();
+  const [showRoleModal, setShowRoleModal] = useState(false);
+  const [showParentModal, setShowParentModal] = useState(false);
+  const [showTeacherModal, setShowTeacherModal] = useState(false);
+  const [showManagerModal, setShowManagerModal] = useState(false);
+
+   const handleParentLogin = (username: string, password: string) => {
+    // Replace this with your real authentication logic
+    if (username === "parent" && password === "parent") {
+      setShowParentModal(false);
+      navigate("/parent-dashboard");
+    } else {
+      alert("Invalid credentials");
+    }
+  };
+  const handleTeacherLogin = (username: string, password: string) => {
+    // Replace with your real authentication logic
+    if (username === "teacher" && password === "teacher") {
+      setShowTeacherModal(false);
+      navigate("/teacher-dashboard");
+    } else {
+      alert("Invalid credentials");
+    }
+  };
+  const handleManagerLogin = (username: string, password: string) => {
+    // Replace with your real authentication logic
+    if (username === "manager" && password === "manager") {
+      setShowManagerModal(false);
+      navigate("/manager-dashboard");
+    } else {
+      alert("Invalid credentials");
+    }
+  };
 
   const team = [
     {
@@ -66,10 +102,10 @@ function Login() {
           zIndex: 10,
         }}
       >
-        <button onClick={() => navigate("/employee-role")} style={buttonStyle}>
+        <button onClick={() => setShowRoleModal(true)} style={buttonStyle}>
           Staff Login
         </button>
-        <button onClick={() => navigate("/parent-login")} style={buttonStyle}>
+         <button onClick={() => setShowParentModal(true)} style={buttonStyle}>
           Parent Login
         </button>
       </div>
@@ -152,9 +188,9 @@ function Login() {
       {/* Slideshow */}
       <div
         style={{
-          position: "relative",
-          top: "290px",
-          left: "-25%",
+          position: "absolute",
+          top: "650px",
+          left: "7%",
           display: "flex",
           alignItems: "center",
           background: "rgba(255,255,255,0.2)",
@@ -241,8 +277,8 @@ function Login() {
       <p
         style={{
           position: "relative",
-          top: "-79px",
-          right: "-28%",
+          top: "280px",
+          right: "-24%",
           width: "45%",
           display: "table-cell",
           fontFamily: "Georgia, serif",
@@ -268,8 +304,8 @@ function Login() {
       <p
         style={{
           position: "relative",
-          top: "0px",
-          left: "-35%",
+          top: "370px",
+          left: "-37%",
           fontSize: "2.5rem",
           color: "#f5f5f5",
           margin: 0,
@@ -282,7 +318,7 @@ function Login() {
       {/* Timeline component */}
       <div
         style={{
-          marginTop: "0px",
+          marginTop: "350px",
           width: "100%",
           maxWidth: "1200px",
           color: "#000000",
@@ -290,6 +326,33 @@ function Login() {
       >
         <DaycareTimeline />
       </div>
+      <EmployeeRoleModal
+        show={showRoleModal}
+        onClose={() => setShowRoleModal(false)}
+        onTeacher={() => {
+          setShowRoleModal(false);
+          setShowTeacherModal(true); 
+        }}
+        onManager={() => {
+          setShowRoleModal(false);
+          setShowManagerModal(true);
+        }}
+      />
+      <ParentLoginModal
+        show={showParentModal}
+        onClose={() => setShowParentModal(false)}
+        onLogin={handleParentLogin}
+      />
+      <TeacherLoginModal
+        show={showTeacherModal}
+        onClose={() => setShowTeacherModal(false)}
+        onLogin={handleTeacherLogin}
+      />
+      <ManagerLoginModal
+        show={showManagerModal}
+        onClose={() => setShowManagerModal(false)}
+        onLogin={handleManagerLogin}
+      />
     </div>
   );
 }
