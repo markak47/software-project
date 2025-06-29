@@ -1,93 +1,105 @@
-// src/pages/ParentLogin.tsx
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { sampleUsers } from "../data/sampleUsers";
+import React, { useState } from "react";
 
-function ParentLogin() {
+interface Props {
+  show: boolean;
+  onClose: () => void;
+  onLogin: (username: string, password: string) => void;
+}
+
+const ParentLoginModal: React.FC<Props> = ({ show, onClose, onLogin }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+
+  if (!show) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    const foundUser = sampleUsers.find(
-      (user) =>
-        user.username === username &&
-        user.password === password &&
-        user.role === "parent"
-    );
-
-    if (foundUser) {
-      localStorage.setItem("loggedInUser", JSON.stringify(foundUser));
-      navigate("/dashboard/parent");
-    } else {
-      alert("Invalid credentials or role");
-    }
+    onLogin(username, password);
   };
 
   return (
     <div
       style={{
-        minHeight: "100vh",
+        position: "fixed",
+        top: 0, left: 0, right: 0, bottom: 0,
+        background: "rgba(0,0,0,0.35)",
+        zIndex: 1000,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "linear-gradient(to top,rgba(255, 255, 255, 0.2),rgb(217, 130, 7))",
       }}
+      onClick={onClose}
     >
       <form
+        onClick={e => e.stopPropagation()}
         onSubmit={handleSubmit}
         style={{
-          background: "#fff",
-          padding: "2.5rem 2rem",
-          borderRadius: "18px",
-          boxShadow: "0 8px 32px rgba(251, 146, 60, 0.13)",
-          minWidth: "320px",
+          textAlign: "center",
+          background: "linear-gradient(135deg,rgb(236, 239, 242) 0%,rgb(17, 219, 230) 100%)",
+          minHeight: "50vh",
+          borderRadius: "24px",
+          boxShadow: "0 8px 32px rgba(60,60,120,0.16)",
+          padding: "2.5rem",
+          maxWidth: "420px",
+          width: "90vw",
+          position: "relative",
+          overflow: "hidden",
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
+          gap: "1.2rem"
         }}
       >
-        <h2 style={{ color: "#fb923c", marginBottom: "1.5rem" }}>
-          Parent Login
+        <button
+          type="button"
+          onClick={onClose}
+          style={{
+            position: "absolute",
+            top: 16,
+            right: 16,
+            background: "none",
+            border: "none",
+            fontSize: "2rem",
+            color: "#64748b",
+            cursor: "pointer",
+            zIndex: 2,
+          }}
+          aria-label="Close"
+        >
+          ×
+        </button>
+        <h2 style={{ color: "#4f46e5", marginBottom: "1.5rem", fontSize: "2rem" }}>
+          👪 Parent Login
         </h2>
         <input
           type="text"
           placeholder="Username"
           value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={e => setUsername(e.target.value)}
           style={{
-            marginBottom: "1rem",
-            padding: "0.9rem 1.1rem",
+            padding: "0.8rem",
             borderRadius: "8px",
-            border: "1px solid #fdba74",
+            border: "1px solid #cbd5e1",
             fontSize: "1rem",
             width: "100%",
-            outline: "none",
-            transition: "border 0.2s",
           }}
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={e => setPassword(e.target.value)}
           style={{
-            marginBottom: "1.3rem",
-            padding: "0.9rem 1.1rem",
+            padding: "0.8rem",
             borderRadius: "8px",
-            border: "1px solid #fdba74",
+            border: "1px solid #cbd5e1",
             fontSize: "1rem",
             width: "100%",
-            outline: "none",
-            transition: "border 0.2s",
           }}
         />
         <button
           type="submit"
           style={{
-            background: "linear-gradient(90deg, #fb923c 0%, #fdba74 100%)",
+            background: "linear-gradient(90deg, #6366f1 0%, #818cf8 100%)",
             color: "#fff",
             border: "none",
             borderRadius: "8px",
@@ -95,25 +107,14 @@ function ParentLogin() {
             fontSize: "1.1rem",
             fontWeight: 600,
             cursor: "pointer",
-            boxShadow: "0 2px 12px rgba(251, 146, 60, 0.10)",
-            transition: "transform 0.12s, box-shadow 0.12s, background 0.2s",
-          }}
-          onMouseOver={(e) => {
-            e.currentTarget.style.transform = "scale(1.05)";
-            e.currentTarget.style.background =
-              "linear-gradient(90deg, #fdba74 0%, #fb923c 100%)";
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.transform = "scale(1)";
-            e.currentTarget.style.background =
-              "linear-gradient(90deg, #fb923c 0%, #fdba74 100%)";
+            marginTop: "1rem"
           }}
         >
-          Login
+          Log In
         </button>
       </form>
     </div>
   );
-}
+};
 
-export default ParentLogin;
+export default ParentLoginModal;
