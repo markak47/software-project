@@ -29,11 +29,11 @@ function ParentLogin() {
   return (
     <div
       style={{
-        minHeight: "70vh",
+        minHeight: "100vh",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "linear-gradient(135deg, #fff7ed 0%, #fdba74 100%)",
+        background: "linear-gradient(to top,rgba(255, 255, 255, 0.2),rgb(217, 130, 7))",
       }}
     >
       <form

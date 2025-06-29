@@ -29,11 +29,11 @@ function ManagerLogin() {
   return (
     <div
       style={{
-        minHeight: "70vh",
+        minHeight: "100vh",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "linear-gradient(135deg, #ece9e6 0%, #ffffff 100%)",
+        background: "linear-gradient(to top,rgba(255, 255, 255, 0.2),rgb(27, 25, 31))",
       }}
     >
       <form

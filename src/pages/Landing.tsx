@@ -241,7 +241,7 @@ function Login() {
       <p
         style={{
           position: "relative",
-          top: "-25px",
+          top: "-79px",
           right: "-28%",
           width: "45%",
           display: "table-cell",
@@ -268,7 +268,7 @@ function Login() {
       <p
         style={{
           position: "relative",
-          top: "100px",
+          top: "0px",
           left: "-35%",
           fontSize: "2.5rem",
           color: "#f5f5f5",
@@ -282,7 +282,7 @@ function Login() {
       {/* Timeline component */}
       <div
         style={{
-          marginTop: "100px",
+          marginTop: "0px",
           width: "100%",
           maxWidth: "1200px",
           color: "#000000",

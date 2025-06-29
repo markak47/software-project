@@ -29,11 +29,11 @@ function TeacherLogin() {
   return (
     <div
       style={{
-        minHeight: "70vh",
+        minHeight: "100vh",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%)",
+        background: "linear-gradient(to top,rgba(255, 255, 255, 0.2),rgb(45, 7, 217))",
       }}
     >
       <form
