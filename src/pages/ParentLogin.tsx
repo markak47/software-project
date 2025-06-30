@@ -21,34 +21,37 @@ const ParentLoginModal: React.FC<Props> = ({ show, onClose, onLogin }) => {
     <div
       style={{
         position: "fixed",
-        top: 0, left: 0, right: 0, bottom: 0,
+        inset: 0,
         background: "rgba(0,0,0,0.35)",
+        backdropFilter: "blur(4px)",
         zIndex: 1000,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        animation: "fadeIn 0.3s ease-in-out",
       }}
       onClick={onClose}
     >
       <form
-        onClick={e => e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()}
         onSubmit={handleSubmit}
         style={{
-          textAlign: "center",
-          background: "linear-gradient(135deg,rgb(236, 239, 242) 0%,rgb(17, 219, 230) 100%)",
-          minHeight: "50vh",
-          borderRadius: "24px",
-          boxShadow: "0 8px 32px rgba(60,60,120,0.16)",
+          background: "linear-gradient(135deg,#e0f2fe,#bae6fd)",
+          borderRadius: "20px",
+          boxShadow: "0 12px 32px rgba(0,0,0,0.15)",
           padding: "2.5rem",
           maxWidth: "420px",
           width: "90vw",
-          position: "relative",
-          overflow: "hidden",
           display: "flex",
           flexDirection: "column",
-          gap: "1.2rem"
+          gap: "1.2rem",
+          textAlign: "center",
+          position: "relative",
+          transform: "scale(1)",
+          transition: "transform 0.2s ease",
         }}
       >
+        {/* Close button */}
         <button
           type="button"
           onClick={onClose}
@@ -58,56 +61,67 @@ const ParentLoginModal: React.FC<Props> = ({ show, onClose, onLogin }) => {
             right: 16,
             background: "none",
             border: "none",
-            fontSize: "2rem",
-            color: "#64748b",
+            fontSize: "1.8rem",
+            color: "#475569",
             cursor: "pointer",
-            zIndex: 2,
           }}
           aria-label="Close"
         >
           ×
         </button>
-        <h2 style={{ color: "#4f46e5", marginBottom: "1.5rem", fontSize: "2rem" }}>
+
+        {/* Heading */}
+        <h2 style={{ color: "#0ea5e9", fontSize: "1.8rem", fontWeight: 700 }}>
           👪 Parent Login
         </h2>
+
+        {/* Input fields */}
         <input
           type="text"
           placeholder="Username"
           value={username}
-          onChange={e => setUsername(e.target.value)}
+          onChange={(e) => setUsername(e.target.value)}
           style={{
-            padding: "0.8rem",
-            borderRadius: "8px",
+            padding: "0.85rem",
+            borderRadius: "10px",
             border: "1px solid #cbd5e1",
             fontSize: "1rem",
-            width: "100%",
+            boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
           }}
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
-          onChange={e => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
           style={{
-            padding: "0.8rem",
-            borderRadius: "8px",
+            padding: "0.85rem",
+            borderRadius: "10px",
             border: "1px solid #cbd5e1",
             fontSize: "1rem",
-            width: "100%",
+            boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
           }}
         />
+
+        {/* Submit Button */}
         <button
           type="submit"
           style={{
-            background: "linear-gradient(90deg, #6366f1 0%, #818cf8 100%)",
+            background: "linear-gradient(90deg, #0ea5e9 0%, #38bdf8 100%)",
             color: "#fff",
             border: "none",
-            borderRadius: "8px",
-            padding: "0.9rem 2.2rem",
+            borderRadius: "10px",
+            padding: "0.9rem",
             fontSize: "1.1rem",
             fontWeight: 600,
             cursor: "pointer",
-            marginTop: "1rem"
+            boxShadow: "0 4px 14px rgba(14,165,233,0.3)",
+          }}
+          onMouseOver={(e) => {
+            (e.target as HTMLButtonElement).style.transform = "scale(1.03)";
+          }}
+          onMouseOut={(e) => {
+            (e.target as HTMLButtonElement).style.transform = "scale(1)";
           }}
         >
           Log In

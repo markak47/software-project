@@ -21,16 +21,19 @@ function TeacherDashboard() {
 
       <div style={{ display: "flex", gap: "2rem" }}>
         <button
-          onClick={() => navigate("birthday-planner")}
+          onClick={() => navigate("/dashboard/teacher/birthday-planner")}
           style={buttonStyle}
         >
           🎉 Birthday Planner
         </button>
-        <button onClick={() => navigate("status-report")} style={buttonStyle}>
+        <button
+          onClick={() => navigate("/dashboard/teacher/status-report")}
+          style={buttonStyle}
+        >
           Status Report
         </button>
         <button
-          onClick={() => navigate("status-report/manage")}
+          onClick={() => navigate("/dashboard/teacher/status-report/manage")}
           style={buttonStyle}
         >
           View/edit Reports

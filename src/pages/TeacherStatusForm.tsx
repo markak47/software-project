@@ -1,7 +1,6 @@
-// ✅ TeacherStatusForm.tsx
 import { useState, useContext } from "react";
 import { TeacherStatusContext } from "../context/TeacherStatusContext";
-import { useUserContext } from "../context/UserContext"; // ✅ Add this
+import { useUserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
 function TeacherStatusForm() {
@@ -11,7 +10,7 @@ function TeacherStatusForm() {
   const [details, setDetails] = useState("");
 
   const { submitStatus } = useContext(TeacherStatusContext);
-  const { updateAttendance } = useUserContext(); // ✅ Get updateAttendance
+  const { updateAttendance } = useUserContext();
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("loggedInUser") || "{}");
 
@@ -19,12 +18,10 @@ function TeacherStatusForm() {
     e.preventDefault();
     if (!user?.username) return alert("Not logged in");
 
-    // ✅ Update status in the attendance system
     if (statusType === "Absent" || statusType === "Late") {
       updateAttendance(user.username, statusType);
     }
 
-    // ✅ Submit the report (for manager view)
     submitStatus({
       name: user.username,
       status: statusType,
@@ -35,31 +32,56 @@ function TeacherStatusForm() {
   };
 
   return (
-    <div style={{ padding: "2rem", maxWidth: "500px", margin: "auto" }}>
-      <h2 style={{ color: "#2563eb", fontSize: "1.5rem" }}>
-        📋 Submit Status Report
+    <div
+      style={{
+        padding: "3rem 1.5rem",
+        maxWidth: "600px",
+        margin: "auto",
+        fontFamily: "system-ui, sans-serif",
+      }}
+    >
+      <h2
+        style={{
+          color: "#2563eb",
+          fontSize: "2rem",
+          fontWeight: 700,
+          marginBottom: "1.5rem",
+        }}
+      >
+        📝 Submit Status Report
       </h2>
+
       <form
         onSubmit={handleSubmit}
         style={{
           display: "flex",
           flexDirection: "column",
-          gap: "1rem",
-          marginTop: "1rem",
+          gap: "1.2rem",
+          background: "#f8fafc",
+          padding: "2rem",
+          borderRadius: "12px",
+          boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
         }}
       >
-        <label>Status Type</label>
+        <label style={{ fontWeight: 600, color: "#334155" }}>Status Type</label>
         <select
           value={statusType}
           onChange={(e) => setStatusType(e.target.value as any)}
-          style={{ padding: "0.5rem", borderRadius: "8px" }}
+          style={{
+            padding: "0.75rem",
+            borderRadius: "8px",
+            border: "1px solid #cbd5e1",
+            fontSize: "1rem",
+          }}
         >
           <option value="Absent">Absent</option>
           <option value="Late">Late</option>
           <option value="other">Other</option>
         </select>
 
-        <label>Optional Details</label>
+        <label style={{ fontWeight: 600, color: "#334155" }}>
+          Optional Details
+        </label>
         <textarea
           placeholder="Details (optional)..."
           value={details}
@@ -68,22 +90,31 @@ function TeacherStatusForm() {
           style={{
             resize: "none",
             borderRadius: "8px",
-            padding: "0.5rem",
-            border: "1px solid #ccc",
+            padding: "0.75rem",
+            border: "1px solid #cbd5e1",
+            fontSize: "1rem",
           }}
         />
 
         <button
           type="submit"
           style={{
-            padding: "0.6rem",
-            background: "#3b82f6",
+            padding: "0.9rem",
+            background: "linear-gradient(to right, #3b82f6, #60a5fa)",
             color: "white",
             border: "none",
-            borderRadius: "8px",
-            fontWeight: "bold",
+            borderRadius: "10px",
+            fontWeight: 600,
+            fontSize: "1.1rem",
             cursor: "pointer",
+            transition: "transform 0.15s ease",
           }}
+          onMouseOver={(e) =>
+            ((e.target as HTMLButtonElement).style.transform = "scale(1.03)")
+          }
+          onMouseOut={(e) =>
+            ((e.target as HTMLButtonElement).style.transform = "scale(1)")
+          }
         >
           ✅ Submit
         </button>

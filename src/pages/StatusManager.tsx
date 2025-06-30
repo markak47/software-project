@@ -8,7 +8,6 @@ function StatusManager() {
   const handleUpdate = (id: number) => {
     const newStatus = prompt("Update status (illness, lateness, or other):");
     const allowed = ["illness", "lateness", "other"];
-
     if (newStatus && allowed.includes(newStatus)) {
       updateReport(id, { status: newStatus as any });
     } else {
@@ -23,43 +22,70 @@ function StatusManager() {
   };
 
   return (
-    <div style={{ padding: "2rem" }}>
+    <div
+      style={{
+        padding: "3rem 1.5rem",
+        fontFamily: "system-ui, sans-serif",
+        background: "#f9fafb",
+        minHeight: "100vh",
+      }}
+    >
       <h2
-        style={{ fontSize: "1.8rem", marginBottom: "1rem", color: "#1d4ed8" }}
+        style={{
+          fontSize: "2rem",
+          marginBottom: "2rem",
+          color: "#1d4ed8",
+          fontWeight: 700,
+          textAlign: "center",
+        }}
       >
-        📋 Manage Teacher Status Reports
+        🗂️ Manage Teacher Status Reports
       </h2>
+
       {reports.length === 0 ? (
-        <p>No reports submitted yet.</p>
+        <p
+          style={{ textAlign: "center", color: "#64748b", fontSize: "1.1rem" }}
+        >
+          No reports submitted yet.
+        </p>
       ) : (
-        <ul style={{ listStyle: "none", padding: 0 }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "1.5rem",
+            maxWidth: "700px",
+            margin: "0 auto",
+          }}
+        >
           {reports.map((r) => (
-            <li
+            <div
               key={r.id}
               style={{
-                background: "#f9fafb",
-                padding: "1rem",
-                border: "1px solid #ccc",
-                borderRadius: "8px",
-                marginBottom: "1rem",
+                background: "white",
+                padding: "1.5rem",
+                borderRadius: "12px",
+                boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+                borderLeft: "6px solid #60a5fa",
               }}
             >
-              <p>
-                <strong>Teacher:</strong> {r.name}
+              <p style={infoText}>
+                <strong>👩‍🏫 Teacher:</strong> {r.name}
               </p>
-              <p>
-                <strong>Status:</strong> {r.status}
+              <p style={infoText}>
+                <strong>📌 Status:</strong> {r.status}
               </p>
-              <p>
-                <strong>Date:</strong> {new Date(r.date).toLocaleDateString()}
+              <p style={infoText}>
+                <strong>📅 Date:</strong>{" "}
+                {new Date(r.date).toLocaleDateString()}
               </p>
-              <p>
-                <strong>details:</strong> {r.details}
+              <p style={infoText}>
+                <strong>📝 Details:</strong> {r.details || "—"}
               </p>
-              <div style={{ marginTop: "0.5rem" }}>
+              <div style={{ marginTop: "1rem", display: "flex", gap: "1rem" }}>
                 <button
                   onClick={() => handleUpdate(r.id)}
-                  style={btnStyle("#facc15")}
+                  style={btnStyle("#fbbf24")}
                 >
                   ✏️ Edit
                 </button>
@@ -70,23 +96,33 @@ function StatusManager() {
                   🗑️ Delete
                 </button>
               </div>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );
 }
 
+const infoText: React.CSSProperties = {
+  margin: "0.3rem 0",
+  fontSize: "1rem",
+  color: "#334155",
+};
+
 const btnStyle = (bg: string): React.CSSProperties => ({
-  padding: "0.4rem 0.8rem",
+  padding: "0.6rem 1.2rem",
   backgroundColor: bg,
   color: "white",
   border: "none",
-  borderRadius: "6px",
+  borderRadius: "8px",
   cursor: "pointer",
-  fontWeight: "bold",
-  marginRight: "0.5rem",
+  fontWeight: 600,
+  fontSize: "1rem",
+  transition: "transform 0.1s ease",
+  boxShadow: "0 2px 6px rgba(0,0,0,0.08)",
+  whiteSpace: "nowrap",
+  lineHeight: 1.2,
 });
 
 export default StatusManager;

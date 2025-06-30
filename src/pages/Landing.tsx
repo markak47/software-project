@@ -1,43 +1,71 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { useAttendance } from "../hooks/useAttendance";
-import DaycareTimeline from "../components/TimeLine"; 
+import DaycareTimeline from "../components/TimeLine";
+import myPhoto from "../assets/Ali.png";
 import EmployeeRoleModal from "./EmployeeRole";
 import ParentLoginModal from "./ParentLogin";
 import TeacherLoginModal from "./TeacherLogin";
 import ManagerLoginModal from "./ManagerLogin";
-import myPhoto from "../assets/Ali.png"; // Adjust the path as necessary
+import { sampleUsers } from "../data/sampleUsers";
 
 function Login() {
   const navigate = useNavigate();
+
   const [showRoleModal, setShowRoleModal] = useState(false);
   const [showParentModal, setShowParentModal] = useState(false);
   const [showTeacherModal, setShowTeacherModal] = useState(false);
   const [showManagerModal, setShowManagerModal] = useState(false);
 
-   const handleParentLogin = (username: string, password: string) => {
-    // Replace this with your real authentication logic
-    if (username === "parent" && password === "parent") {
+  // Handler for teacher login
+  const handleTeacherLogin = (username: string, password: string) => {
+    const user = sampleUsers.find(
+      (u) =>
+        u.username === username &&
+        u.password === password &&
+        u.role === "teacher"
+    );
+
+    if (user) {
+      localStorage.setItem("loggedInUser", JSON.stringify(user));
+      setShowTeacherModal(false);
+      navigate("/dashboard/teacher"); // ✅ go to teacher dashboard
+    } else {
+      alert("Invalid credentials");
+    }
+  };
+
+  // Handler for parent login
+  const handleParentLogin = (username: string, password: string) => {
+    const user = sampleUsers.find(
+      (u) =>
+        u.username === username &&
+        u.password === password &&
+        u.role === "parent"
+    );
+
+    if (user) {
+      localStorage.setItem("loggedInUser", JSON.stringify(user));
       setShowParentModal(false);
       navigate("/parent-dashboard");
     } else {
       alert("Invalid credentials");
     }
   };
-  const handleTeacherLogin = (username: string, password: string) => {
-    // Replace with your real authentication logic
-    if (username === "teacher" && password === "teacher") {
-      setShowTeacherModal(false);
-      navigate("/teacher-dashboard");
-    } else {
-      alert("Invalid credentials");
-    }
-  };
+
+  // Handler for manager login
   const handleManagerLogin = (username: string, password: string) => {
-    // Replace with your real authentication logic
-    if (username === "manager" && password === "manager") {
+    const user = sampleUsers.find(
+      (u) =>
+        u.username === username &&
+        u.password === password &&
+        u.role === "manager"
+    );
+
+    if (user) {
+      localStorage.setItem("loggedInUser", JSON.stringify(user));
       setShowManagerModal(false);
-      navigate("/manager-dashboard");
+      navigate("/dashboard/manager"); // ✅ navigate to manager dashboard
     } else {
       alert("Invalid credentials");
     }
@@ -105,7 +133,7 @@ function Login() {
         <button onClick={() => setShowRoleModal(true)} style={buttonStyle}>
           Staff Login
         </button>
-         <button onClick={() => setShowParentModal(true)} style={buttonStyle}>
+        <button onClick={() => setShowParentModal(true)} style={buttonStyle}>
           Parent Login
         </button>
       </div>
@@ -188,15 +216,9 @@ function Login() {
       {/* Slideshow */}
       <div
         style={{
-<<<<<<< HEAD
           position: "relative",
           top: "290px",
-          left: "-28%",
-=======
-          position: "absolute",
-          top: "650px",
-          left: "7%",
->>>>>>> c32ef79ea6cac3742de9272fbaf310a4203c7b64
+          left: "-25%",
           display: "flex",
           alignItems: "center",
           background: "rgba(255,255,255,0.2)",
@@ -279,12 +301,11 @@ function Login() {
         </button>
       </div>
 
-      {/* Daycare description */}
       <p
         style={{
           position: "relative",
-          top: "280px",
-          right: "-24%",
+          top: "-25px",
+          right: "-28%",
           width: "45%",
           display: "table-cell",
           fontFamily: "Georgia, serif",
@@ -295,23 +316,15 @@ function Login() {
         }}
       >
         "Since 2014, the Museumsplatz daycare has been located in a historic
-        building near Harburg Town Hall and offers space for around 350 children
-        across ten groups. The spacious facility includes highlights like the
-        grand “Meistersaal” for climbing and play, regular excursions, and
-        creative activities. We place a strong emphasis on language development
-        and inclusion. As a certified “House of Little Scientists,” we focus on
-        early STEM education and sustainability, recognized with the KITA21
-        award. Children enjoy a paddling room, swimming lessons in our own
-        teaching pool, and multi-day trips to the seaside. Healthy, fresh
-        organic meals complete our holistic care concept."
+        building near Harburg Town Hall and offers space for around 350
+        children..."
       </p>
 
-      {/* Timeline heading */}
       <p
         style={{
           position: "relative",
-          top: "370px",
-          left: "-37%",
+          top: "100px",
+          left: "-35%",
           fontSize: "2.5rem",
           color: "#f5f5f5",
           margin: 0,
@@ -321,10 +334,9 @@ function Login() {
         Activities & Resources
       </p>
 
-      {/* Timeline component */}
       <div
         style={{
-          marginTop: "350px",
+          marginTop: "100px",
           width: "100%",
           maxWidth: "1200px",
           color: "#000000",
@@ -332,28 +344,32 @@ function Login() {
       >
         <DaycareTimeline />
       </div>
+
       <EmployeeRoleModal
         show={showRoleModal}
         onClose={() => setShowRoleModal(false)}
         onTeacher={() => {
           setShowRoleModal(false);
-          setShowTeacherModal(true); 
+          setShowTeacherModal(true);
         }}
         onManager={() => {
           setShowRoleModal(false);
           setShowManagerModal(true);
         }}
       />
+
       <ParentLoginModal
         show={showParentModal}
         onClose={() => setShowParentModal(false)}
         onLogin={handleParentLogin}
       />
+
       <TeacherLoginModal
         show={showTeacherModal}
         onClose={() => setShowTeacherModal(false)}
         onLogin={handleTeacherLogin}
       />
+
       <ManagerLoginModal
         show={showManagerModal}
         onClose={() => setShowManagerModal(false)}

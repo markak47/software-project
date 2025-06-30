@@ -21,8 +21,9 @@ const TeacherLoginModal: React.FC<Props> = ({ show, onClose, onLogin }) => {
     <div
       style={{
         position: "fixed",
-        top: 0, left: 0, right: 0, bottom: 0,
-        background: "rgba(0,0,0,0.35)",
+        inset: 0,
+        background: "rgba(0, 0, 0, 0.4)",
+        backdropFilter: "blur(4px)",
         zIndex: 1000,
         display: "flex",
         alignItems: "center",
@@ -31,24 +32,23 @@ const TeacherLoginModal: React.FC<Props> = ({ show, onClose, onLogin }) => {
       onClick={onClose}
     >
       <form
-        onClick={e => e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()}
         onSubmit={handleSubmit}
         style={{
-          textAlign: "center",
-          background: "linear-gradient(135deg,rgb(236, 239, 242) 0%,rgb(17, 219, 230) 100%)",
-          minHeight: "50vh",
-          borderRadius: "24px",
-          boxShadow: "0 8px 32px rgba(60,60,120,0.16)",
+          background: "linear-gradient(135deg, #f8fafc, #dbeafe)",
+          borderRadius: "20px",
+          boxShadow: "0 12px 30px rgba(0,0,0,0.2)",
           padding: "2.5rem",
           maxWidth: "420px",
           width: "90vw",
-          position: "relative",
-          overflow: "hidden",
           display: "flex",
           flexDirection: "column",
-          gap: "1.2rem"
+          gap: "1.3rem",
+          position: "relative",
+          textAlign: "center",
         }}
       >
+        {/* Close button */}
         <button
           type="button"
           onClick={onClose}
@@ -58,56 +58,70 @@ const TeacherLoginModal: React.FC<Props> = ({ show, onClose, onLogin }) => {
             right: 16,
             background: "none",
             border: "none",
-            fontSize: "2rem",
-            color: "#64748b",
+            fontSize: "1.8rem",
+            color: "#6b7280",
             cursor: "pointer",
-            zIndex: 2,
           }}
           aria-label="Close"
         >
           ×
         </button>
-        <h2 style={{ color: "#4f46e5", marginBottom: "1.5rem", fontSize: "2rem" }}>
+
+        {/* Heading */}
+        <h2 style={{ color: "#1d4ed8", fontSize: "1.8rem", fontWeight: 600 }}>
           👩‍🏫 Teacher Login
         </h2>
+
+        {/* Inputs */}
         <input
           type="text"
           placeholder="Username"
           value={username}
-          onChange={e => setUsername(e.target.value)}
+          onChange={(e) => setUsername(e.target.value)}
           style={{
-            padding: "0.8rem",
-            borderRadius: "8px",
+            padding: "0.85rem",
+            borderRadius: "10px",
             border: "1px solid #cbd5e1",
             fontSize: "1rem",
-            width: "100%",
+            boxShadow: "0 1px 4px rgba(0,0,0,0.05)",
+            transition: "border 0.2s ease",
           }}
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
-          onChange={e => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
           style={{
-            padding: "0.8rem",
-            borderRadius: "8px",
+            padding: "0.85rem",
+            borderRadius: "10px",
             border: "1px solid #cbd5e1",
             fontSize: "1rem",
-            width: "100%",
+            boxShadow: "0 1px 4px rgba(0,0,0,0.05)",
+            transition: "border 0.2s ease",
           }}
         />
+
+        {/* Submit Button */}
         <button
           type="submit"
           style={{
             background: "linear-gradient(90deg, #6366f1 0%, #818cf8 100%)",
             color: "#fff",
             border: "none",
-            borderRadius: "8px",
-            padding: "0.9rem 2.2rem",
+            borderRadius: "10px",
+            padding: "0.95rem",
             fontSize: "1.1rem",
             fontWeight: 600,
             cursor: "pointer",
-            marginTop: "1rem"
+            boxShadow: "0 4px 14px rgba(99, 102, 241, 0.2)",
+            transition: "transform 0.2s, box-shadow 0.2s",
+          }}
+          onMouseOver={(e) => {
+            (e.target as HTMLButtonElement).style.transform = "scale(1.03)";
+          }}
+          onMouseOut={(e) => {
+            (e.target as HTMLButtonElement).style.transform = "scale(1)";
           }}
         >
           Log In
