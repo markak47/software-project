@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { useAttendance } from "../hooks/useAttendance";
 import DaycareTimeline from "../components/TimeLine";
 import myPhoto from "../assets/Ali.png";
+import myPhoto2 from "../assets/Manager.png";
+
 import EmployeeRoleModal from "./EmployeeRole";
 import ParentLoginModal from "./ParentLogin";
 import TeacherLoginModal from "./TeacherLogin";
@@ -73,11 +75,11 @@ function Login() {
 
   const team = [
     {
-      name: "Natalya Yanitska",
-      username: "natalya",
+      name: "Elena Müller",
+      username: "elena",
       role: "House Management",
-      img: "https://sternipark.de/media/images/Museumspl.edfd3d6a.fill-600x360.format-webp.frame-kitas.webp",
-      desc: "Alice brings 10 years of early childhood education experience to our daycare.",
+      img: myPhoto2, // Use the manager image here
+      desc: "Elena leads our daycare with dedication and a passion for creating a nurturing environment.",
     },
     {
       name: "Samir Smith",
