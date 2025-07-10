@@ -5,9 +5,9 @@ This project was developed as part of our coursework at **Hamburg University of 
 
 Our goal was to build a **practical, real-world solution** addressing two key challenges faced by the daycare:
 for the logins use
-Teacher: username: tom/anna , password:teacher123
-manager: manager, admin123
-parent: larry/smith/potter/grimes. password: parent123
+- Teacher: username: tom/anna , password:teacher123
+- manager: manager, admin123
+- parent: larry/smith/potter/grimes. password: parent123
 ---
 
 ## 💡 Problem Statement
