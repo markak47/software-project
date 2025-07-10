@@ -4,7 +4,10 @@ Hello, and welcome to our Software Engineering project 👋
 This project was developed as part of our coursework at **Hamburg University of Technology (TUHH)** in collaboration with a **local kindergarten in Harburg**.
 
 Our goal was to build a **practical, real-world solution** addressing two key challenges faced by the daycare:
-
+for the logins use
+Teacher: username: tom/anna , password:teacher123
+manager: manager, admin123
+parent: larry/smith/potter/grimes. password: parent123
 ---
 
 ## 💡 Problem Statement
